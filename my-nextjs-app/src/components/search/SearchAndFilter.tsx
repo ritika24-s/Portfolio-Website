@@ -17,7 +17,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Search, X, Filter } from 'lucide-react';
 import { TimelineItem } from '@/types/timeline';
-import { getAllUniqueSkills } from '@/components/timeline/TimelineUtils';
+import { getAllUniqueSkills } from '@/utils/TimelineUtils';
 import { trackSearchAnalytics, trackFilterAnalytics } from '@/utils/analytics';
 
 // Add debounce utility

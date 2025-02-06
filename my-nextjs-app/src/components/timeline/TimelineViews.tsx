@@ -7,7 +7,7 @@
 import React, { useState } from 'react';
 import { TimelineItem } from '@/types/timeline';
 import { timelineData } from '@/data/timelineData';
-import { groupItemsByYear, getAllUniqueSkills, searchTimelineItems } from '@/components/timeline/TimelineUtils';
+import { groupItemsByYear, getAllUniqueSkills, searchTimelineItems } from '@/utils/TimelineUtils';
 import { FileText, Briefcase, Code, Calendar, Tag } from 'lucide-react';
 
 

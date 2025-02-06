@@ -7,7 +7,8 @@ import React, { useState } from 'react';
 import { 
   ExternalLink, Code, Layout, 
   ChevronLeft, ChevronRight, Maximize, 
-  Terminal, Database, Server
+  Terminal, Database, Server,
+  X
 } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -86,12 +87,23 @@ export const ProjectShowcase = ({ projects }: ProjectShowcaseProps) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 bg-black bg-opacity-50 z-50 overflow-y-auto"
-            onClick={(e) => {
-              if (e.target === e.currentTarget) setSelectedProject(null);
-            }}
+            // onClick={(e) => {
+            //   if (e.target === e.currentTarget) setSelectedProject(null);
+            // }}
+            onClick={() => setSelectedProject(null)}
           >
             <div className="min-h-screen px-4 py-8">
-              <div className="max-w-6xl mx-auto bg-white dark:bg-gray-800 rounded-xl overflow-hidden">
+              <div 
+                className="max-w-6xl mx-auto bg-white dark:bg-gray-800 rounded-xl overflow-hidden"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Close button - Add this button */}
+                <button
+                  onClick={() => setSelectedProject(null)}
+                  className="absolute top-4 right-4 p-2 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                >
+                  <X className="w-6 h-6" />
+                </button>
                 {/* Image Gallery */}
                 <div className="relative aspect-video">
                   <img
