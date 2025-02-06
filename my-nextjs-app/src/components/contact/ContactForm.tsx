@@ -1,6 +1,6 @@
 /*
  * File: src/components/contact/ContactForm.tsx
- * Purpose: Animated contact form with with EmailJS integration, validation and micro-interactions
+ * Purpose: Contact form with EmailJS integration
  */
 
 import React, { useState } from 'react';
@@ -20,7 +20,6 @@ export const ContactForm = () => {
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [formStatus, setFormStatus] = useState<FormStatus>({ type: null, message: '' });
   const [focusedField, setFocusedField] = useState<keyof FormData | null>(null);
 
@@ -95,7 +94,19 @@ export const ContactForm = () => {
     }
   };
 
-  // ... (previous input classes and style functions remain the same)
+  const inputClasses = (field: keyof FormData) => `
+    w-full px-4 py-3 rounded-lg border 
+    ${errors[field] 
+      ? 'border-red-500 dark:border-red-400' 
+      : 'border-gray-300 dark:border-gray-600'
+    }
+    ${focusedField === field
+      ? 'ring-2 ring-blue-500 border-blue-500'
+      : 'focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
+    }
+    bg-white dark:bg-gray-800
+    transition-all duration-200
+  `;
 
   return (
     <div className="max-w-2xl mx-auto p-6">
@@ -131,9 +142,142 @@ export const ContactForm = () => {
           )}
         </AnimatePresence>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Form fields remain the same as before */}
-          {/* ... */}
+        <motion.form
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onSubmit={handleSubmit}
+              className="space-y-6"
+            >
+              {/* Name Field */}
+              <div>
+                <label className="flex items-center mb-2 text-sm font-medium">
+                  <User className="w-4 h-4 mr-2" />
+                  Name
+                </label>
+                <motion.div
+                  whileTap={{ scale: 0.995 }}
+                >
+                  <input
+                    type="text"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    onFocus={() => setFocusedField('name')}
+                    onBlur={() => setFocusedField(null)}
+                    className={inputClasses('name')}
+                    placeholder="Your name"
+                  />
+                </motion.div>
+                <AnimatePresence>
+                  {errors.name && (
+                    <motion.span
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="text-red-500 text-sm flex items-center mt-1"
+                    >
+                      <AlertCircle className="w-4 h-4 mr-1" />
+                      {errors.name}
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Email Field */}
+              <div>
+                <label className="flex items-center mb-2 text-sm font-medium">
+                  <Mail className="w-4 h-4 mr-2" />
+                  Email
+                </label>
+                <motion.div whileTap={{ scale: 0.995 }}>
+                  <input
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    onFocus={() => setFocusedField('email')}
+                    onBlur={() => setFocusedField(null)}
+                    className={inputClasses('email')}
+                    placeholder="your@email.com"
+                  />
+                </motion.div>
+                <AnimatePresence>
+                  {errors.email && (
+                    <motion.span
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="text-red-500 text-sm flex items-center mt-1"
+                    >
+                      <AlertCircle className="w-4 h-4 mr-1" />
+                      {errors.email}
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Subject Field */}
+              <div>
+                <label className="flex items-center mb-2 text-sm font-medium">
+                  <MessageSquare className="w-4 h-4 mr-2" />
+                  Subject
+                </label>
+                <motion.div whileTap={{ scale: 0.995 }}>
+                  <input
+                    type="text"
+                    value={formData.subject}
+                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                    onFocus={() => setFocusedField('subject')}
+                    onBlur={() => setFocusedField(null)}
+                    className={inputClasses('subject')}
+                    placeholder="What's this about?"
+                  />
+                </motion.div>
+                <AnimatePresence>
+                  {errors.subject && (
+                    <motion.span
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="text-red-500 text-sm flex items-center mt-1"
+                    >
+                      <AlertCircle className="w-4 h-4 mr-1" />
+                      {errors.subject}
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Message Field */}
+              <div>
+                <label className="flex items-center mb-2 text-sm font-medium">
+                  <MessageSquare className="w-4 h-4 mr-2" />
+                  Message
+                </label>
+                <motion.div whileTap={{ scale: 0.995 }}>
+                  <textarea
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    onFocus={() => setFocusedField('message')}
+                    onBlur={() => setFocusedField(null)}
+                    className={`${inputClasses('message')} resize-none h-32`}
+                    placeholder="Your message here..."
+                  />
+                </motion.div>
+                <AnimatePresence>
+                  {errors.message && (
+                    <motion.span
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="text-red-500 text-sm flex items-center mt-1"
+                    >
+                      <AlertCircle className="w-4 h-4 mr-1" />
+                      {errors.message}
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </div>
+
 
           {/* Submit Button with loading and disabled states */}
           <motion.button
@@ -165,7 +309,7 @@ export const ContactForm = () => {
               </>
             )}
           </motion.button>
-        </form>
+        </motion.form>
       </motion.div>
     </div>
   );
