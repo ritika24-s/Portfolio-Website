@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
+import { ContactForm } from '../contact/ContactForm';
 
 const Footer = () => {
   return (
@@ -44,8 +45,17 @@ const Footer = () => {
             <ul className="space-y-2 text-slate-600 dark:text-slate-300">
               <li>Email: sharmari@tcd.ie</li>
               <li>Phone: +353-894832042</li>
+              <li>
+                <Link 
+                  href="/contact" 
+                  className="text-slate-600 dark:text-slate-300 hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
+                >
+                Send a query
+                </Link>
+              </li>
             </ul>
           </div>
+
         </div>
 
         {/* Copyright */}
