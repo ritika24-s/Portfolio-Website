@@ -6,8 +6,10 @@
 
 import React, { useState } from 'react';
 import { TimelineItem } from '@/types/timeline';
-import { groupItemsByYear, getAllUniqueSkills, timelineData, searchTimelineItems } from '@/data/timelineData';
+import { timelineData } from '@/data/timelineData';
+import { groupItemsByYear, getAllUniqueSkills, searchTimelineItems } from '@/components/timeline/TimelineUtils';
 import { FileText, Briefcase, Code, Calendar, Tag } from 'lucide-react';
+
 
 // Grid View Component
 export const TimelineGrid = ({ items }: { items: TimelineItem[] }) => {

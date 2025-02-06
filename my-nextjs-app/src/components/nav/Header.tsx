@@ -53,15 +53,29 @@ const Header = () => {
 
   // Function to increase font size for better readability
   const increaseFontSize = () => {
-    setFontSize(prev => Math.min(prev + 0.1, 1.5)); // Increase by 10% up to 150%
+    setFontSize(prev => {
+      const newSize = Math.min(prev + 0.1, 1.5);
+      // Apply font size to the document body
+      document.body.style.fontSize = `${newSize}rem`;
+      return newSize;
+    });
   };
+
+  // Initialize font size on component mount
+  useEffect(() => {
+    document.body.style.fontSize = `${fontSize}rem`;
+    return () => {
+      // Cleanup on unmount
+      document.body.style.fontSize = '1rem';
+    };
+  }, []);
   
   const isActive = (path: string) => {
     return pathname === path;
   };
 
   return (
-    <div style={{ fontSize: `${fontSize}rem` }}>
+    <div>
       <nav className="fixed top-0 left-0 right-0 w-full bg-pink-50 dark:bg-slate-800 shadow-md p-4 z-50">
         <div className="flex justify-between items-center h-16">
           {/* Left Side - Logo/Home */}
@@ -90,6 +104,7 @@ const Header = () => {
             >
               Interactive
             </Link>
+
             <Link 
               href="/plain" 
               className={`hover:text-violet-600 transition-colors ${
@@ -98,7 +113,17 @@ const Header = () => {
             >
               Plain
             </Link>
+
+            <Link 
+              href="/projects" 
+              className={`hover:text-violet-600 transition-colors ${
+                isActive('/projects') ? 'text-violet-600' : 'text-slate-600 dark:text-slate-300'
+              }`}
+            >
+              Projects
+            </Link>
           </div>
+
 
           {/* Right Side - Actions */}
           <div className="hidden md:flex items-center space-x-4">
@@ -171,6 +196,7 @@ const Header = () => {
               >
                 Interactive
               </Link>
+
               <Link
                 href="/plain"
                 className={`block px-3 py-2 rounded-md ${
@@ -181,6 +207,18 @@ const Header = () => {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Plain
+              </Link>
+
+              <Link
+                href="/projects"
+                className={`block px-3 py-2 rounded-md ${
+                  isActive('/projects') 
+                    ? 'bg-violet-500 text-white' 
+                    : 'text-slate-600 dark:text-slate-300 hover:bg-pink-100 dark:hover:bg-slate-700'
+                }`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Projects
               </Link>
               
               {/* Mobile Social Links */}

@@ -89,3 +89,109 @@ body {
     animation: fadeInOut 2s ease-out;
   }
 }
+
+/* print styles */
+/* 
+ * File: src/app/globals.css
+ * Add these print styles to your globals.css
+ */
+
+ @media print {
+  /* Hide non-printable elements */
+  .no-print {
+    display: none !important;
+  }
+
+  /* Reset background colors and text colors */
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  /* Ensure all content is visible */
+  .print-visible {
+    display: block !important;
+    opacity: 1 !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* Adjust layout for printing */
+  .print-break-after {
+    break-after: page;
+  }
+
+  /* QR Code visibility */
+  .print-qr {
+    display: block !important;
+    margin: 20px 0;
+  }
+
+  /* Links */
+  a[href]:after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    font-weight: normal;
+  }
+
+  /* Reset shadows and animations */
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
+.preview-content {
+  font-size: 12pt;
+  line-height: 1.6;
+}
+
+.preview-content h1 {
+  font-size: 24pt;
+  margin-bottom: 1cm;
+}
+
+.preview-content h2 {
+  font-size: 16pt;
+  margin-top: 0.5cm;
+  margin-bottom: 0.3cm;
+}
+
+/* Hide elements based on settings */
+.hide-skills .skill-tag {
+  display: none !important;
+}
+
+.hide-links .external-link {
+  display: none !important;
+}
+
+.hide-qr .qr-code {
+  display: none !important;
+}
+
+/* A4 paper simulation */
+.print-preview-page {
+  width: 21cm;
+  min-height: 29.7cm;
+  padding: 2.54cm;
+  margin: 1cm auto;
+  box-shadow: 0 0 0.5cm rgba(0,0,0,0.1);
+  background: white;
+}
+
+@media screen {
+  .print-preview-wrapper {
+    background: #f0f0f0;
+    padding: 2cm;
+  }
+}
+
+/* Scale preview for different screen sizes */
+@media screen and (max-width: 21cm) {
+  .print-preview-page {
+    width: 100%;
+    padding: 1cm;
+  }
+}

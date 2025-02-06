@@ -1,7 +1,7 @@
 /*
  * File: src/components/timeline/TimelineContainer.tsx
  * Purpose: Main container component that manages different timeline views
- * Dependencies: TimelineViews, InteractiveTimeline, timelineData
+ * Dependencies: TimelineViews, TimelinePins, timelineData
  */
 
 import React, { useState } from 'react';
@@ -14,7 +14,6 @@ import {
   SkillsMatrix,
   TimelineFilter 
 } from './TimelineViews';
-import InteractiveTimeline from './InteractiveTimeline';
 import TimelinePins from './TimelinePins';
 
 type ViewType = 'interactive' | 'grid' | 'calendar' | 'skills';

@@ -2,21 +2,22 @@
 // Purpose: Timeline data and utility functions
 // Used by: All timeline components
 
-import { TimelineData, TimelineItem } from '@/types/timeline';
+import { TimelineData } from '@/types/timeline';
 
 export const timelineData: TimelineData = [
   {
     id: 1,
-    title: "Bachelor's Degree",
-    date: "2018-2022",
-    description: "Computer Science at Example University",
+    title: "BTech Computer Science and Engineering",
+    date: "2013-2017",
+    description: "Graduated from Mody University, India, with a focus on Data Structures and AI.",
     type: "education",
-    location: "New York, USA",
-    skills: ["Java", "Python", "Data Structures", "Algorithms"],
+    location: "Mody UniversityRajasthan, India",
+    skills: ["Artificial Intelligence", "Python", "Data Structures", "Algorithms",
+       "Computer Vision", "Machine Learning", "Data Mining", "Object Oriented Programming"],
     questions: [
       {
-        question: "What were your favorite courses?",
-        answer: "Data Structures, Algorithms, and Web Development"
+        question: "What was your focus area?",
+        answer: "AI and Neural Networks, Computer Vision, and Object Oriented Programming"
       },
       {
         question: "Most challenging project?",
@@ -24,18 +25,18 @@ export const timelineData: TimelineData = [
       },
       {
         question: "Key achievements?",
-        answer: "Dean's List all semesters, Led the Programming Club"
+        answer: "Received a scholarship for four years of education for excellence in academics, Led the Programming Club"
       }
     ]
   },
   {
     id: 2,
-    title: "Software Engineer Intern",
-    date: "Summer 2021",
-    description: "Worked on the frontend team developing new features",
+    title: "Senior Software Engineer - Infosys",
+    date: "2017 - 2021",
+    description: "Led the migration of a legacy codebase from PL/I to Python and transitioned data from Mainframe to AWS.",
     type: "work",
     location: "San Francisco, CA",
-    skills: ["React", "TypeScript", "Node.js"],
+    skills: ["Python", "AWS", "Mainframe", "PL/I", "Data Migration", "Software Development", ""],
     links: {
       website: "https://company.example.com",
     },
@@ -73,72 +74,3 @@ export const timelineData: TimelineData = [
     ]
   }
 ];
-
-// export specific timeline filters or utilities
-export const getTimelineItemsByType = (type: 'education' | 'work' | 'project') => {
-  return timelineData.filter(item => item.type === type);
-};
-
-export const getTimelineItemById = (id: number) => {
-  return timelineData.find(item => item.id === id);
-};
-
-// Get items within a date range
-export const getTimelineItemsByDateRange = (startDate: string, endDate: string): TimelineItem[] => {
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    return timelineData.filter(item => {
-      const itemDate = new Date(item.date);
-      return itemDate >= start && itemDate <= end;
-    });
-  };
-  
-  // Get all unique skills from timeline
-  export const getAllUniqueSkills = (): string[] => {
-    const skillsSet = new Set<string>();
-    timelineData.forEach(item => {
-      item.skills?.forEach(skill => skillsSet.add(skill));
-    });
-    return Array.from(skillsSet).sort();
-  };
-  
-  // Get items by skill
-  export const getItemsBySkill = (skill: string): TimelineItem[] => {
-    return timelineData.filter(item => item.skills?.includes(skill));
-  };
-  
-  // Group items by year
-  export const groupItemsByYear = (): Record<string, TimelineItem[]> => {
-    return timelineData.reduce((acc, item) => {
-      const year = new Date(item.date).getFullYear().toString();
-      if (!acc[year]) {
-        acc[year] = [];
-      }
-      acc[year].push(item);
-      return acc;
-    }, {} as Record<string, TimelineItem[]>);
-  };
-  
-  // Get next and previous items
-  export const getAdjacentItems = (currentId: number): { next?: TimelineItem; prev?: TimelineItem } => {
-    const currentIndex = timelineData.findIndex(item => item.id === currentId);
-    return {
-      prev: currentIndex > 0 ? timelineData[currentIndex - 1] : undefined,
-      next: currentIndex < timelineData.length - 1 ? timelineData[currentIndex + 1] : undefined,
-    };
-  };
-  
-  // Get items with specific links (github, website, etc)
-  export const getItemsWithLinks = (linkType: 'github' | 'website' | 'demo'): TimelineItem[] => {
-    return timelineData.filter(item => item.links?.[linkType]);
-  };
-  
-  // Search timeline items
-  export const searchTimelineItems = (query: string): TimelineItem[] => {
-    const searchTerm = query.toLowerCase();
-    return timelineData.filter(item => 
-      item.title.toLowerCase().includes(searchTerm) ||
-      item.description.toLowerCase().includes(searchTerm) ||
-      item.skills?.some(skill => skill.toLowerCase().includes(searchTerm))
-    );
-  };

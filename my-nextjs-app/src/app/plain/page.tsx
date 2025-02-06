@@ -29,14 +29,26 @@ import React, { useState, useEffect } from 'react';
 import { timelineData } from '@/data/timelineData';
 import { 
   BookOpen, Briefcase, Code, ChevronRight,
-  ExternalLink, Mail, Calendar
+  ExternalLink, Mail, Calendar,
+  Printer, QrCode
 } from 'lucide-react';
 import {FaGithub} from 'react-icons/fa';
+import {PrintPreview} from '@/components/print/PrintPreview';
+import { TimelineItem } from '@/types/timeline';
+import { SearchAndFilter } from '@/components/search/SearchAndFilter';
 
 export default function PlainPage() {
   const [activeSection, setActiveSection] = useState<string>('education');
-
   const [isSticky, setIsSticky] = useState(false);
+  const [showPrintPreview, setShowPrintPreview] = useState(false);
+  const [filteredItems, setFilteredItems] = useState<TimelineItem[]>(timelineData);
+
+
+  // Handle print preview
+  const handlePrint = () => {
+    setShowPrintPreview(false);
+    window.print();
+  };
 
   // Handle scroll for sticky sidebar
   useEffect(() => {
@@ -47,16 +59,28 @@ export default function PlainPage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Generate QR Code URL for the portfolio
+  const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(window.location.href)}`;
+
   // Filter items by type
   const educationItems = timelineData.filter(item => item.type === 'education');
   const workItems = timelineData.filter(item => item.type === 'work');
   const projectItems = timelineData.filter(item => item.type === 'project');
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-20">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-20 print:pt-0 print:bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Search and Filter Component */}
+        <div className="mb-8 no-print">
+            <SearchAndFilter 
+              items={timelineData}
+              onFilterChange={setFilteredItems}
+            />
+          </div>
+
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Sidebar Navigation */}
+          {/* Sidebar - Hidden in print */}
           <div className={`lg:w-64 flex-shrink-0 ${
             isSticky ? 'lg:sticky lg:top-20' : ''
           }`}>
@@ -110,6 +134,15 @@ export default function PlainPage() {
 
           {/* Main Content */}
           <div className="flex-1 space-y-8">
+            {/* Show message when no results */}
+            {filteredItems.length === 0 && (
+                <div className="text-center py-12">
+                  <p className="text-gray-500 dark:text-gray-400">
+                    No items match your search criteria.
+                  </p>
+                </div>
+            )}
+
             {/* Education Section */}
             <section className={activeSection === 'education' ? 'block' : 'hidden'}>
               <h2 className="text-2xl font-bold mb-6 flex items-center">
@@ -246,7 +279,23 @@ export default function PlainPage() {
             </section>
           </div>
         </div>
+        
       </div>
+      {/* Print Preview Button */}
+      <button
+        onClick={() => setShowPrintPreview(true)}
+        className="fixed bottom-6 right-6 bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 transition-colors no-print"
+        aria-label="Print portfolio"
+      >
+        <Printer className="w-6 h-6" />
+      </button>
+
+      {/* Print Preview Modal */}
+      <PrintPreview
+        isOpen={showPrintPreview}
+        onClose={() => setShowPrintPreview(false)}
+        onPrint={handlePrint}
+      />
     </div>
   );
 }

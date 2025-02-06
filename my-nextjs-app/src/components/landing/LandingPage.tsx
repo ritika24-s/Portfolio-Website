@@ -17,30 +17,71 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-blue-50 dark:bg-slate-900">
+    // Main container with dynamic dark mode classes
+    <div className={`min-h-screen`}>
+      {/* Main Content Area */}
       <main className="pt-24 container mx-auto px-4">
-        <div className="flex flex-col items-center text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-slate-800 dark:text-slate-100 mb-4">
+        <div className="flex flex-col items-center justify-center min-h-[80vh] space-y-12">
+          {/* Main Heading */}
+          <h1 className="text-4xl md:text-6xl font-bold text-center">
             Welcome to My Portfolio
           </h1>
-          <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl">
-            NLP Engineer with a passion for building intelligent systems and solving complex problems.
+          
+          {/* Subtitle */}
+          <p className="text-xl text-center max-w-2xl">
+            Choose your preferred way to explore my journey
           </p>
+
+          {/* Options Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-4xl">
+            {/* Interactive Option Card */}
+            <Link 
+            href="/interactive" 
+              className="group relative bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1"
+            >
+              <div className="text-center">
+                <GraduationCap className="w-12 h-12 mx-auto mb-4 text-blue-500" />
+                <h3 className="text-xl font-semibold mb-2">Interactive</h3>
+                <p className="text-gray-600 dark:text-gray-300">
+                  Experience my journey through an interactive timeline
+                </p>
+              </div>
+            </Link>
+
+
+            {/* Plain Option Card */}
+            <Link 
+              href="/plain" 
+              className="group relative bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1"
+            >
+              <div className="text-center">
+
+                <FileText className="w-12 h-12 mx-auto mb-4 text-green-500" />
+                <h3 className="text-xl font-semibold mb-2">Plain</h3>
+                <p className="text-gray-600 dark:text-gray-300">
+                  View my portfolio in a simple, clean layout
+                </p>
+              </div>
+            </Link>
+
+
+            {/* Random Option Card */}
+            <Link 
+               href={`/${getRandomChoice()}`}
+              className="group relative bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1"
+            >
+
+              <div className="text-center">
+                <div className="w-12 h-12 mx-auto mb-4 text-purple-500">🎲</div>
+                <h3 className="text-xl font-semibold mb-2">Surprise Me!</h3>
+                <p className="text-gray-600 dark:text-gray-300">
+                  Let fate decide how you explore
+                </p>
+              </div>
+            </Link>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-          <LinkComponent
-            href="/interactive"
-            title="Interactive Timeline"
-            description="Explore my journey through an interactive timeline"
-          />
-          <LinkComponent
-            href="/plain"
-            title="Plain View"
-            description="A simple, straightforward view of my experience"
-          />
-          {/* Add more cards as needed */}
-        </div>
       </main>
 
       {/* Scroll to Top Button - Fixed at bottom right */}
@@ -51,21 +92,6 @@ const LandingPage = () => {
         <ArrowUp className="w-6 h-6" />
       </button>
     </div>
-  );
-};
-
-const LinkComponent = ({ href, title, description }: { href: string; title: string; description: string }) => {
-  return (
-    <Link href={href} className="group relative">
-      <div className="bg-white dark:bg-slate-800 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-blue-100 dark:border-slate-700">
-        <h2 className="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-4 group-hover:text-violet-600 dark:group-hover:text-violet-400">
-          {title}
-        </h2>
-        <p className="text-slate-600 dark:text-slate-300">
-          {description}
-        </p>
-      </div>
-    </Link>
   );
 };
 
