@@ -4,6 +4,7 @@ import "./globals.css";
 // import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import Header from "@/components/nav/Header";
 import Footer from "@/components/nav/Footer";
+import { ScrollToTop } from '@/components/common/ScrollToTop';
 
 // Initialize Inter font
 const inter = Inter({ subsets: ["latin"] });
@@ -27,9 +28,9 @@ export default function RootLayout({
         <main className="pt-16">
           {children}
         </main>
+        <ScrollToTop />
         <Footer />
       </body>
     </html>
-
   );
 }
