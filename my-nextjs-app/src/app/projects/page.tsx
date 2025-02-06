@@ -10,6 +10,7 @@ import { ProjectShowcase } from '@/components/projects/ProjectShowcase';
 import { ProjectAnalytics } from '@/app/projects/ProjectAnalytics';
 import { projectData } from '@/data/projectData';
 import { LayoutGrid, ChartBar } from 'lucide-react';
+import { FeaturedProject } from '@/components/projects/FeaturedProject';
 
 
 type ViewMode = 'showcase' | 'analytics';
@@ -55,8 +56,13 @@ export default function ProjectsPage() {
         </div>
       </div>
 
+      {/* Featured Project */}
+      <FeaturedProject />
+
+      {/* Other Projects */}
       {/* Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
         {viewMode === 'showcase' ? (
           <ProjectShowcase projects={projectData} />
         ) : (
