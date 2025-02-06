@@ -10,10 +10,13 @@ const Footer = () => {
           {/* Company Info */}
           <div>
             <h3 className="text-lg font-semibold text-violet-600 dark:text-violet-300 mb-3">Portfolio Of</h3>
-            <p className="text-slate-600 dark:text-slate-300">
+            <Link 
+              href="/about"
+              className="text-slate-600 dark:text-slate-300 hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
+            >
               Ritika Sharma <br />
               NLP Engineer
-            </p>
+            </Link>
           </div>
 
           {/* Quick Links */}
