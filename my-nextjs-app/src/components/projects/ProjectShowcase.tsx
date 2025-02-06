@@ -4,10 +4,11 @@
  */
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { 
   ExternalLink, Code, Layout, 
   ChevronLeft, ChevronRight, Maximize, 
-  Terminal, Database, Server,
+  Terminal, Database, Server, Mail,
   X
 } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
@@ -277,6 +278,18 @@ export const ProjectShowcase = ({ projects }: ProjectShowcaseProps) => {
           </motion.div>
         )}
       </AnimatePresence>
+      <div className="text-center mt-16 pb-12">
+  <h3 className="text-xl mb-4">Interested in working together?</h3>
+  <Link 
+    href="/contact"
+    className="inline-flex items-center bg-blue-500 text-white px-6 py-3 rounded-lg 
+               hover:bg-blue-600 transition-all transform hover:-translate-y-1"
+  >
+    <Mail className="w-5 h-5 mr-2" />
+    Let&apos;s Talk
+  </Link>
+</div>
     </div>
+
   );
 };

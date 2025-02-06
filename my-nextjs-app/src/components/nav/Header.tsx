@@ -128,7 +128,7 @@ const Header = () => {
           {/* Right Side - Actions */}
           <div className="hidden md:flex items-center space-x-4">
             {/* Social Links */}
-            <div className="flex space-x-2">
+            {/* <div className="flex space-x-2">
               <a 
                 href="https://github.com/ritika24-s" 
                 target="_blank" 
@@ -151,7 +151,13 @@ const Header = () => {
               >
                 <FaLinkedin className="w-5 h-5" />
               </a>
-            </div>
+            </div> */}
+            <Link 
+              href="/contact" 
+              className="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-pink-100 dark:hover:bg-slate-700 transition-colors"
+            >
+              Get in Touch
+            </Link>
 
             {/* Utility Buttons */}
             <div className="flex items-center space-x-2">
@@ -223,7 +229,7 @@ const Header = () => {
               
               {/* Mobile Social Links */}
               <div className="flex space-x-4 px-3 py-2">
-                <a href="https://github.com/ritika24-s" 
+                {/* <a href="https://github.com/ritika24-s" 
                    target="_blank" 
                    rel="noopener noreferrer"
                    className="text-slate-600 dark:text-slate-300 hover:text-violet-600"
@@ -241,7 +247,13 @@ const Header = () => {
                    className="text-slate-600 dark:text-slate-300 hover:text-violet-600"
                 >
                   <FaLinkedin className="w-5 h-5" />
-                </a>
+                </a> */}
+                <Link 
+                  href="/contact" 
+                  className="text-slate-600 dark:text-slate-300 hover:bg-blue-600 transition-colors"
+                >
+                  Get in Touch
+                </Link>
               </div>
             </div>
           </div>
