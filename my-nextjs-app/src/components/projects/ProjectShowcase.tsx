@@ -5,6 +5,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+
 import { 
   ExternalLink, Code, Layout, 
   ChevronLeft, ChevronRight, Maximize, 
@@ -14,6 +15,7 @@ import {
 import { FaGithub } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ProjectShowcaseProps, ProjectDetails } from '@/types/project';
+import Image from 'next/image';
 
 
 
@@ -51,11 +53,16 @@ export const ProjectShowcase = ({ projects }: ProjectShowcaseProps) => {
           >
             {/* Project Card */}
             <div className="aspect-video overflow-hidden">
-              <img
+              {project.images.length > 0 && (
+              <Image
                 src={project.images[0]}
                 alt={project.title}
                 className="w-full h-full object-cover hover:scale-105 transition-transform"
+                width={800}
+                height={450}
+                loading="lazy"
               />
+              )}
             </div>
             <div className="p-6">
               <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
@@ -107,11 +114,16 @@ export const ProjectShowcase = ({ projects }: ProjectShowcaseProps) => {
                 </button>
                 {/* Image Gallery */}
                 <div className="relative aspect-video">
-                  <img
+                  {selectedProject.images.length > 0 && (
+                  <Image
                     src={selectedProject.images[currentImageIndex]}
                     alt={`${selectedProject.title} screenshot ${currentImageIndex + 1}`}
                     className="w-full h-full object-cover"
+                    width={800}
+                    height={450}
+                    loading="lazy"
                   />
+                  )}
                   {selectedProject.images.length > 1 && (
                     <>
                       <button
@@ -134,6 +146,11 @@ export const ProjectShowcase = ({ projects }: ProjectShowcaseProps) => {
                   >
                     <Maximize className="w-6 h-6" />
                   </button>
+                  {selectedProject.images.length > 1 && (
+                    <div className="absolute bottom-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full">
+                      {currentImageIndex + 1} / {selectedProject.images.length}
+                    </div>
+                  )}
                 </div>
 
                 {/* Content */}
@@ -270,11 +287,15 @@ export const ProjectShowcase = ({ projects }: ProjectShowcaseProps) => {
             className="fixed inset-0 bg-black z-50 flex items-center justify-center"
             onClick={() => setShowFullImage(false)}
           >
-            <img
-              src={selectedProject.images[currentImageIndex]}
-              alt={`${selectedProject.title} screenshot ${currentImageIndex + 1}`}
-              className="max-w-full max-h-full object-contain"
-            />
+            {selectedProject?.images[currentImageIndex] && (
+              <Image
+                src={selectedProject.images[currentImageIndex]}
+                alt={`${selectedProject.title} screenshot ${currentImageIndex + 1}`}
+                width={800}
+                height={450}
+                className="max-w-full max-h-full object-contain"
+              />
+            )}
           </motion.div>
         )}
       </AnimatePresence>
