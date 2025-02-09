@@ -195,3 +195,41 @@ body {
     padding: 1cm;
   }
 }
+
+@layer utilities {
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  /* Better tap targets on mobile */
+  @media (max-width: 768px) {
+    .mobile-tap-target {
+      min-height: 44px;
+      min-width: 44px;
+    }
+  }
+  
+  /* Prevent text from being too small on mobile */
+  @media (max-width: 768px) {
+    .min-text {
+      font-size: max(16px, 1rem);
+    }
+  }
+  
+  /* Handle notched phones */
+  .notch-padding {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+/* Better scrolling on iOS */
+@supports (-webkit-touch-callout: none) {
+  .momentum-scroll {
+    -webkit-overflow-scrolling: touch;
+  }
+}

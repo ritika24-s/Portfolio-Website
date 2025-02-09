@@ -43,7 +43,7 @@ export const FeaturedProject = () => {
         className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden"
       >
         {/* Project Header */}
-        <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-8">
+        <div className="bg-gradient-to-r from-teal-500 to-purple-600 p-8">
           <div className="flex items-center space-x-3">
             <Bot className="w-8 h-8 text-white" />
             <h2 className="text-2xl font-bold text-white">Sentiment Analyzer</h2>

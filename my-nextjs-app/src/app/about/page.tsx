@@ -1,13 +1,24 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Globe, Music, Book, Code, Camera, Languages } from 'lucide-react';
+import { LanguageToggle } from '@/components/about/LanguageToggle';
+import { aboutContent } from '@/data/aboutContent';
 
-const AboutPage = () => {
+type Language = 'en' | 'de' | 'hi';
+
+const AboutPage: React.FC = () => {
+  const [currentLang, setCurrentLang] = useState<Language>('en');
+  const content = aboutContent[currentLang];
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-16">
+      <LanguageToggle 
+        currentLang={currentLang}
+        onLanguageChange={setCurrentLang}
+      />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -36,30 +47,35 @@ const AboutPage = () => {
                 animate={{ opacity: 1 }}
                 className="text-3xl font-bold mb-4"
               >
-                Hi, I'm Ritika Sharma
+                {content.title}
               </motion.h1>
-              <p className="text-gray-600 dark:text-gray-300 mb-6">
-                NLP Engineer & Full Stack Developer based in Dublin, Ireland. I'm passionate about 
-                building AI-powered applications that make a difference in people's lives.
-              </p>
+              {/* <p className="text-gray-600 dark:text-gray-300 mb-6">
+                {content.intro}
+
+                
+              </p> */}
+              {/* Description */}
+              <div className="prose dark:prose-invert max-w-none mb-12">
+                <p>{content.description}</p>
+              </div>
               
               {/* Quick Stats */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                 <div className="text-center p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
-                  <div className="font-bold text-2xl text-blue-600 dark:text-blue-400">3+</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-300">Years Experience</div>
+                  <div className="font-bold text-2xl text-blue-600 dark:text-blue-400">6+</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-300">{content.stats.experience}</div>
                 </div>
                 <div className="text-center p-4 bg-green-50 dark:bg-green-900/30 rounded-lg">
                   <div className="font-bold text-2xl text-green-600 dark:text-green-400">20+</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-300">Projects</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-300">{content.stats.projects}</div>
                 </div>
                 <div className="text-center p-4 bg-purple-50 dark:bg-purple-900/30 rounded-lg">
                   <div className="font-bold text-2xl text-purple-600 dark:text-purple-400">5</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-300">Publications</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-300">{content.stats.publications}</div>
                 </div>
                 <div className="text-center p-4 bg-pink-50 dark:bg-pink-900/30 rounded-lg">
                   <div className="font-bold text-2xl text-pink-600 dark:text-pink-400">3</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-300">Languages</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-300">{content.stats.languages}</div>
                 </div>
               </div>
             </div>
@@ -80,15 +96,15 @@ const AboutPage = () => {
               <ul className="space-y-3">
                 <li className="flex justify-between items-center">
                   <span>English</span>
-                  <span className="text-sm text-gray-500">Fluent</span>
+                  <span className="text-sm text-gray-500">{content.languages.english}</span>
                 </li>
                 <li className="flex justify-between items-center">
                   <span>Hindi</span>
-                  <span className="text-sm text-gray-500">Native</span>
+                  <span className="text-sm text-gray-500">{content.languages.hindi}</span>
                 </li>
                 <li className="flex justify-between items-center">
                   <span>German</span>
-                  <span className="text-sm text-gray-500">Basic</span>
+                  <span className="text-sm text-gray-500">{content.languages.german}</span>
                 </li>
               </ul>
             </motion.div>
@@ -103,19 +119,19 @@ const AboutPage = () => {
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex items-center space-x-2">
                   <Globe className="w-5 h-5 text-green-500" />
-                  <span>Traveling</span>
+                  <span>{content.hobbies.traveling}</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Music className="w-5 h-5 text-purple-500" />
-                  <span>Music</span>
+                  <span>{content.hobbies.music}</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Book className="w-5 h-5 text-blue-500" />
-                  <span>Reading</span>
+                  <span>{content.hobbies.reading}</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Camera className="w-5 h-5 text-pink-500" />
-                  <span>Photography</span>
+                  <span>{content.hobbies.photography}</span>
                 </div>
               </div>
             </motion.div>
@@ -132,21 +148,21 @@ const AboutPage = () => {
               </h2>
               <div className="grid md:grid-cols-3 gap-4">
                 <div className="bg-violet-50 dark:bg-violet-900/30 p-4 rounded-lg">
-                  <h3 className="font-semibold mb-2">Natural Language Processing</h3>
+                  <h3 className="font-semibold mb-2">{content.research.nlp.title}</h3>
                   <p className="text-sm text-gray-600 dark:text-gray-300">
-                    Focusing on transformer architectures and multilingual models
+                    {content.research.nlp.description}
                   </p>
                 </div>
                 <div className="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-lg">
-                  <h3 className="font-semibold mb-2">Machine Learning</h3>
+                  <h3 className="font-semibold mb-2">{content.research.ml.title}</h3>
                   <p className="text-sm text-gray-600 dark:text-gray-300">
-                    Deep learning and neural networks for real-world applications
+                    {content.research.ml.description}
                   </p>
                 </div>
                 <div className="bg-green-50 dark:bg-green-900/30 p-4 rounded-lg">
-                  <h3 className="font-semibold mb-2">Web Technologies</h3>
+                  <h3 className="font-semibold mb-2">{content.research.web.title}</h3>
                   <p className="text-sm text-gray-600 dark:text-gray-300">
-                    Modern web frameworks and serverless architectures
+                    {content.research.web.description}
                   </p>
                 </div>
               </div>
@@ -158,4 +174,4 @@ const AboutPage = () => {
   );
 };
 
-export default AboutPage; 
+export default AboutPage;
