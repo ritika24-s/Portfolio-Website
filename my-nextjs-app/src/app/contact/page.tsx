@@ -7,13 +7,14 @@
 
 import { ContactForm } from '@/components/contact/ContactForm';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, MapPin, ExternalLink } from 'lucide-react';
+import { Github, Linkedin, Mail, MapPin, ExternalLink, Phone } from 'lucide-react';
 
 export default function ContactPage() {
   const contactInfo = {
     email: 'sharmari@tcd.ie',
+    phone: '+353-894832042',
     location: 'Dublin, Ireland',
-    github: 'https://github.com/ritikasharma',
+    github: 'https://github.com/ritika24-s',
     linkedin: 'https://linkedin.com/in/ritika-sharma-trinity'
   };
 
@@ -37,7 +38,13 @@ export default function ContactPage() {
             transition={{ delay: 0.1 }}
             className="text-xl text-blue-100"
           >
-            Have a question or want to work together?
+            I&apos;m always interested in hearing about new opportunities, 
+            collaborations, or just having a chat about technology and innovation.
+
+
+            Feel free to reach out through any of the channels below or use the 
+            contact form to send me a message directly.
+
           </motion.p>
         </div>
       </div>
@@ -70,6 +77,14 @@ export default function ContactPage() {
                 >
                   <MapPin className="w-5 h-5 mr-3" />
                   <span>{contactInfo.location}</span>
+                </motion.div>
+
+                <motion.div
+                  className="flex items-center text-gray-600 dark:text-gray-300"
+                  whileHover={{ x: 5 }}
+                >
+                  <Phone className="w-5 h-5 mr-3" />
+                  <span>{contactInfo.phone}</span>
                 </motion.div>
 
                 <motion.a

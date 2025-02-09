@@ -122,6 +122,14 @@ const Header = () => {
             >
               Projects
             </Link>
+            <Link 
+              href="/research" 
+              className={`hover:text-violet-600 transition-colors ${
+                isActive('/projects') ? 'text-violet-600' : 'text-slate-600 dark:text-slate-300'
+              }`}
+            >
+              Research
+            </Link>
           </div>
 
 
