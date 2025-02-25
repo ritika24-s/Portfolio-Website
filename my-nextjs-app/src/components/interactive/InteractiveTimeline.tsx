@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { MessageCircle, Globe, PlayCircle, MapPin } from 'lucide-react';
-import { FaGithub} from 'react-icons/fa';
-
+import { MessageCircle, Globe, Github, PlayCircle, MapPin } from 'lucide-react';
 import { timelineData } from '@/data/timelineData';
 import { TimelineItem } from '@/types/timeline';
 
@@ -83,11 +81,10 @@ const InteractiveTimeline = () => {
             {/* Not Satisfied Section */}
             <div className="mt-6 pt-4 border-t">
               <p className="text-gray-600 dark:text-gray-300 mb-2">
-                Not finding what you&apos;re looking for?
+                Not finding what you're looking for?
               </p>
               <div className="flex space-x-4">
                 <a 
-
                   href="mailto:your.email@example.com" 
                   className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
                 >

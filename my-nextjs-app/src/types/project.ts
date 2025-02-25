@@ -1,26 +1,39 @@
 import { projectData } from "@/data/projectData";
 
-export interface ProjectDetails {
+export type ProjectCategory = 'research' | 'nlp' | 'fullstack';
+
+export interface ProjectLink {
+  github?: string;
+  demo?: string;
+  paper?: string;
+  website?: string;
+}
+
+export interface TechStack {
+  frontend?: string[];
+  backend?: string[];
+  database?: string[];
+  ml?: string[];
+  devops?: string[];
+}
+
+export interface Project {
   id: number;
   title: string;
+  category: ProjectCategory;
   description: string;
-  longDescription: string;
+  longDescription?: string;
+  tech: string[];
+  techStack?: TechStack;
+  links?: ProjectLink;
+  images?: string[];
+  featured: boolean;
+  timeline?: string;
+  achievements?: string[];
+  challenges?: string[];
   skills: string[];
-  images: string[];
-
-  links: {
-    github?: string;
-    demo?: string;
-    website?: string;
-  };
-  technical: {
-    frontend?: string[];
-    backend?: string[];
-    database?: string[];
-    deployment?: string[];
-  };
   features: string[];
-  challenges: string[];
+
 }
   
 export interface ProjectShowcaseProps {

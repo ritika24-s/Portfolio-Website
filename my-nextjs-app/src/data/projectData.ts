@@ -1,140 +1,174 @@
 /*
  * File: src/data/projectData.ts
- * Purpose: Complete project showcase data
+ * Purpose: Centralized project data matching your interface
  */
 
-export const projectData = [
+import { Project } from '@/types/project';
+
+export const projectsData: Project[] = [
   {
     id: 1,
-    title: "E-commerce Platform",
-    description: "A full-stack e-commerce platform with real-time inventory management",
-    longDescription: `A comprehensive e-commerce solution built with Next.js and Node.js. Features include real-time inventory tracking, secure payment processing, and an intuitive admin dashboard for product management.`,
-    skills: ["Next.js", "Node.js", "MongoDB", "Stripe", "Redis", "TypeScript"],
-    images: ["/api/placeholder/800/400", "/api/placeholder/800/400", "/api/placeholder/800/400"],
+    title: "Predicting Big-5 Personality from Facial Action Units",
+    category: "research",
+    description: "MSc thesis project at Trinity College Dublin combining computer vision and machine learning to predict personality traits from facial expressions.",
+    longDescription: `
+      Research project focused on developing a novel approach to personality prediction
+      using facial action units. The system processes facial expressions through computer
+      vision and correlates them with Big-5 personality traits using machine learning models.
+      Successfully implemented and validated the approach with multi-modal datasets.
+    `,
+    tech: ["Python", "OpenCV", "Py-Feat", "scikit-learn", "TensorFlow", "Pandas", "NumPy"],
+    techStack: {
+      ml: [
+        "TensorFlow for deep learning models",
+        "OpenCV and Py-Feat for facial action unit detection",
+        "scikit-learn for machine learning pipeline",
+        "Pandas & NumPy for data processing"
+      ],
+      backend: ["Python"],
+      devops: ["Git", "Docker"]
+    },
     links: {
-      github: "https://github.com/yourusername/ecommerce",
-      demo: "https://demo-ecommerce.example.com",
-      website: "https://ecommerce.example.com"
+      github: "https://github.com/ritika24-s/PredictBIG5",
+      // paper: "thesis_link_here" // Add if available
     },
-    technical: {
-      frontend: [
-        "Next.js for server-side rendering",
-        "TypeScript for type safety",
-        "Tailwind CSS for styling",
-        "Redux Toolkit for state management",
-        "React Query for data fetching"
-      ],
-      backend: [
-        "Node.js with Express",
-        "JWT authentication",
-        "WebSocket for real-time updates",
-        "Rate limiting and security measures"
-      ],
-      database: [
-        "MongoDB for main database",
-        "Redis for caching",
-        "Elasticsearch for search functionality"
-      ],
-      deployment: [
-        "Docker containerization",
-        "AWS infrastructure",
-        "CI/CD with GitHub Actions"
-      ]
-    },
-    features: [
-      "Real-time inventory tracking with WebSocket integration",
-      "Secure payment processing with Stripe",
-      "Advanced search with filters and sorting",
-      "User authentication and authorization",
-      "Admin dashboard for product management",
-      "Order tracking and history"
+    images: ["/api/placeholder/800/400"], // Add actual images
+    featured: true,
+    timeline: "2021-2022",
+    achievements: [
+      "Achieved high accuracy in personality trait prediction",
+      "Developed novel approach combining visual and behavioral data",
+      "Successfully defended thesis with distinction at Trinity College Dublin",
+      "Scored the highest grade under my supervisor",
+      "Created scalable machine learning pipeline for personality prediction"
+
     ],
     challenges: [
-      "Implemented optimistic updates for real-time inventory changes",
-      "Built a robust caching system to handle high traffic",
-      "Developed a scalable search solution with Elasticsearch",
-      "Created a secure payment flow with proper error handling"
+      "Implementing real-time facial action unit detection",
+      "Developing accurate personality prediction models",
+      "Recognizing subtle facial expressions"
+    ],
+
+    skills: [
+      "Computer Vision",
+      "Machine Learning",
+      "Data Analysis",
+      "Python Programming",
+      "Research Methodology",
+      "Facial Action Units", 
+      "Big-5 Personality Traits",
+      "Academic Writing",
+      "Multi-modal data processing",
+    ],
+    features: [
+      "Multi-modal data processing pipeline",
+      "Real-time facial action unit detection",
+      "Personality trait prediction model",
+      "Research methodology implementation",
+      "Comprehensive data analysis"
     ]
   },
+
   {
     id: 2,
-    title: "AI-Powered Task Manager",
-    description: "Smart task management app with AI-driven prioritization",
-    longDescription: `An intelligent task management application that uses machine learning to help users prioritize tasks and manage their time more effectively.`,
-    skills: ["React", "Python", "TensorFlow", "FastAPI", "PostgreSQL"],
-    images: ["/api/placeholder/800/400", "/api/placeholder/800/400"],
+    title: "NLP-Powered Customer Support Quality Assurance Analytics",
+    category: "nlp",
+    description: "Developed AI-driven SaaS platform for analyzing customer-agent interactions using advanced NLP techniques to provide enhanced quality assurance at Scorebuddy.",
+    longDescription: `
+      Developed and deployed a comprehensive NLP solution at Scorebuddy for analyzing 
+      customer support interactions. The system integrates with various helpdesk platforms 
+      and provides automated quality assurance through advanced natural language processing.
+      
+      Implemented microservices architecture for scalability and created sophisticated NLP 
+      pipelines for tasks including sentiment analysis, topic classification, and automated 
+      QA rule generation.
+    `,
+    tech: ["Python", "Flask", "NLTK", "Spacy", "PyTorch", "AWS", "Docker", "MongoDB"],
+    techStack: {
+      frontend: ["AngularJS", "Node.js"],
+      backend: ["Python", "Flask", "Microservices"],
+      ml: ["NLTK", "Spacy", "PyTorch"],
+      devops: ["AWS", "Docker", "Lambda"]
+    },
     links: {
-      github: "https://github.com/yourusername/taskmanager",
-      demo: "https://ai-tasks.example.com"
+      website: "https://scorebuddy.com"
     },
-    technical: {
-      frontend: [
-        "React with TypeScript",
-        "Material-UI components",
-        "React DnD for drag-and-drop",
-        "Chart.js for analytics"
-      ],
-      backend: [
-        "FastAPI for high-performance API",
-        "Python ML pipeline",
-        "Celery for background tasks",
-        "Docker containerization"
-      ],
-      database: [
-        "PostgreSQL with TimescaleDB",
-        "Redis for caching",
-        "Vector embeddings for ML"
-      ]
-    },
-    features: [
-      "AI-powered task prioritization",
-      "Smart deadline suggestions",
-      "Productivity analytics dashboard",
-      "Team collaboration features",
-      "Integration with calendar apps"
+    images: ["/api/placeholder/800/400"],
+    featured: true,
+    timeline: "2022-Present",
+    achievements: [
+      "Successfully integrated multiple helpdesk platforms",
+      "Improved customer support efficiency by 40%",
+      "Implemented scalable NLP pipeline"
     ],
     challenges: [
-      "Developed custom ML model for task prioritization",
-      "Implemented real-time collaboration features",
-      "Optimized performance for large task lists",
-      "Created intuitive UI for complex features"
+      "Building scalable microservices architecture",
+      "Handling real-time data processing",
+      "Implementing complex NLP pipelines"
+    ],
+    skills: [
+      "Natural Language Processing",
+      "Machine Learning",
+      "Microservices Architecture",
+      "Full Stack Development",
+      "Cloud Computing"
+    ],
+    features: [
+      "Automated QA rule generation",
+      "Keyword identification system",
+      "Topic classification",
+      "Entity recognition",
+      "Real-time analytics dashboard"
     ]
   },
   {
     id: 3,
-    title: "Portfolio Website",
-    description: "Interactive developer portfolio with unique visualizations",
-    longDescription: `A modern portfolio website built with Next.js and Tailwind CSS, featuring interactive timeline visualization and detailed project showcases.`,
-    skills: ["Next.js", "Tailwind CSS", "Framer Motion", "TypeScript"],
-    images: ["/api/placeholder/800/400"],
+    title: "Product Management System",
+    category: "fullstack",
+    description: "Full-stack application for efficient product management and inventory tracking.",
+    longDescription: `
+      Developed a comprehensive product management system with real-time updates,
+      inventory tracking, and user management. Implemented using modern web
+      technologies and best practices in software development.
+    `,
+    tech: ["React", "Node.js", "MongoDB", "Express", "TypeScript"],
+    techStack: {
+      frontend: ["React", "TypeScript", "Tailwind CSS"],
+      backend: ["Node.js", "Express"],
+      database: ["MongoDB"],
+      devops: ["Git", "CI/CD"]
+    },
     links: {
-      github: "https://github.com/yourusername/portfolio",
-      website: "https://yourportfolio.com"
+      github: "https://github.com/ritika24-s/Product-Management-System",
+      demo: "demo_link_here" // Add if available
     },
-    technical: {
-      frontend: [
-        "Next.js 13 with App Router",
-        "Tailwind CSS for styling",
-        "Framer Motion animations",
-        "Responsive design principles"
-      ],
-      deployment: [
-        "Vercel deployment",
-        "Continuous deployment with GitHub"
-      ]
-    },
-    features: [
-      "Interactive timeline visualization",
-      "Dark mode support",
-      "Print-friendly version",
-      "Responsive design",
-      "Project showcase with filters"
+    images: ["/api/placeholder/800/400"],
+    featured: false,
+    timeline: "2021",
+    achievements: [
+      "Implemented real-time inventory tracking",
+      "Developed responsive user interface",
+      "Created efficient database schema"
     ],
     challenges: [
-      "Created smooth animations for timeline",
-      "Implemented accessible design",
-      "Optimized performance metrics",
-      "Designed mobile-first experience"
+      "Handling real-time updates",
+      "Implementing efficient data structures",
+      "Creating scalable architecture"
+    ],
+    skills: [
+      "Full Stack Development",
+      "Database Design",
+      "UI/UX Development",
+      "RESTful APIs",
+      "TypeScript"
+    ],
+    features: [
+      "Real-time inventory tracking",
+      "User management system",
+      "Product categorization",
+      "Search and filter functionality",
+      "Responsive design"
     ]
   }
 ];
+

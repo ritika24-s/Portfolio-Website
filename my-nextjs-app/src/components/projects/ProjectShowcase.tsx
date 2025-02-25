@@ -1,158 +1,154 @@
 /*
  * File: src/components/projects/ProjectShowcase.tsx
- * Purpose: Enhanced project showcase with consistent UI
+ * Purpose: Updated project showcase with links to detailed pages
  */
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
+import { Project } from '@/types/projects';
 import { 
-  Bot, Github, ExternalLink, Code, 
-  Server, Database, Globe, Calendar 
+  BookOpen, Briefcase, Code, Server, 
+  Database, GitBranch, ChevronRight,
+  ExternalLink
 } from 'lucide-react';
 
 interface ProjectShowcaseProps {
-  projects: any[];
+  projects: Project[];
 }
 
 export const ProjectShowcase = ({ projects }: ProjectShowcaseProps) => {
-  const [selectedTab, setSelectedTab] = useState<'all' | 'nlp' | 'ml' | 'fullstack'>('all');
+  const [activeCategory, setActiveCategory] = useState('all');
 
-  const filterProjects = () => {
-    if (selectedTab === 'all') return projects;
-    return projects.filter(project => project.category === selectedTab);
+  const categories = [
+    { id: 'all', label: 'All Projects' },
+    { id: 'research', label: 'Research' },
+    { id: 'nlp', label: 'NLP' },
+    { id: 'fullstack', label: 'Full Stack' }
+  ];
+
+  const filteredProjects = activeCategory === 'all' 
+    ? projects 
+    : projects.filter(p => p.category === activeCategory);
+
+  // Get icon based on project category
+  const getCategoryIcon = (category: string) => {
+    switch(category) {
+      case 'research':
+        return <BookOpen className="w-5 h-5 text-purple-500" />;
+      case 'nlp':
+        return <Server className="w-5 h-5 text-blue-500" />;
+      case 'fullstack':
+        return <Code className="w-5 h-5 text-green-500" />;
+      default:
+        return <Briefcase className="w-5 h-5 text-gray-500" />;
+    }
   };
 
   return (
-    <div className="space-y-12">
-      {/* Category Tabs */}
+    <div className="space-y-8">
+      {/* Category Filter */}
       <div className="flex flex-wrap justify-center gap-4">
-        {[
-          { id: 'all', label: 'All Projects' },
-          { id: 'nlp', label: 'NLP' },
-          { id: 'ml', label: 'Machine Learning' },
-          { id: 'fullstack', label: 'Full Stack' }
-        ].map(tab => (
+        {categories.map(category => (
           <button
-            key={tab.id}
-            onClick={() => setSelectedTab(tab.id as any)}
-            className={`px-6 py-2 rounded-lg transition-all transform hover:-translate-y-0.5 ${
-              selectedTab === tab.id
-                ? 'bg-blue-500 text-white shadow-lg'
-                : 'bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700'
+            key={category.id}
+            onClick={() => setActiveCategory(category.id)}
+            className={`px-6 py-2 rounded-lg transition-all ${
+              activeCategory === category.id
+                ? 'bg-blue-500 text-white shadow-md'
+                : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700'
             }`}
           >
-            {tab.label}
+            {category.label}
           </button>
         ))}
       </div>
 
       {/* Projects Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {filterProjects().map((project, index) => (
+        {filteredProjects.map((project, index) => (
           <motion.div
             key={project.id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
-            className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow"
+            className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
           >
-            {/* Project Image/Preview */}
-            <div className="aspect-video relative overflow-hidden bg-gray-100 dark:bg-gray-900">
-              {project.image ? (
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
-                />
-              ) : (
-                <div className="flex items-center justify-center h-full">
-                  <Code className="w-12 h-12 text-gray-400" />
-                </div>
-              )}
-              {/* Tech badges overlay */}
-              <div className="absolute top-4 right-4 flex flex-wrap gap-2 justify-end">
-                {project.skills?.slice(0, 3).map((skill: string) => (
-                  <span
-                    key={skill}
-                    className="px-2 py-1 text-xs font-medium bg-black/50 text-white backdrop-blur-sm rounded-full"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Project Info */}
             <div className="p-6">
-              <div className="flex justify-between items-start mb-4">
-                <h3 className="text-xl font-semibold">{project.title}</h3>
-                <span className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                  <Calendar className="w-4 h-4 mr-1" />
-                  {project.date}
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center space-x-3">
+                  {getCategoryIcon(project.category)}
+                  <h3 className="text-xl font-semibold">{project.title}</h3>
+                </div>
+                <span className="text-sm text-gray-500 dark:text-gray-400">
+                  {project.timeline}
                 </span>
               </div>
-
-              <p className="text-gray-600 dark:text-gray-300 mb-6">
+              
+              <p className="text-gray-600 dark:text-gray-300 mb-4">
                 {project.description}
               </p>
-
-              {/* Technical Stack */}
-              <div className="mb-6 space-y-2">
-                {project.technical?.frontend && (
-                  <div className="flex items-center text-sm">
-                    <Globe className="w-4 h-4 mr-2 text-blue-500" />
-                    <span className="text-gray-600 dark:text-gray-300">
-                      {project.technical.frontend.join(', ')}
-                    </span>
-                  </div>
-                )}
-                {project.technical?.backend && (
-                  <div className="flex items-center text-sm">
-                    <Server className="w-4 h-4 mr-2 text-green-500" />
-                    <span className="text-gray-600 dark:text-gray-300">
-                      {project.technical.backend.join(', ')}
-                    </span>
-                  </div>
-                )}
-                {project.technical?.database && (
-                  <div className="flex items-center text-sm">
-                    <Database className="w-4 h-4 mr-2 text-purple-500" />
-                    <span className="text-gray-600 dark:text-gray-300">
-                      {project.technical.database.join(', ')}
-                    </span>
-                  </div>
+              
+              <div className="flex flex-wrap gap-2 mb-4">
+                {project.tech.slice(0, 5).map((tech, idx) => (
+                  <span 
+                    key={idx}
+                    className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs px-2 py-1 rounded-full"
+                  >
+                    {tech}
+                  </span>
+                ))}
+                {project.tech.length > 5 && (
+                  <span className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs px-2 py-1 rounded-full">
+                    +{project.tech.length - 5} more
+                  </span>
                 )}
               </div>
-
-              {/* Links */}
-              <div className="flex gap-4">
-                {project.links?.github && (
-                  <a
-                    href={project.links.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400 transition-colors"
-                  >
-                    <Github className="w-5 h-5 mr-1" />
-                    <span>Code</span>
-                  </a>
-                )}
-                {project.links?.demo && (
-                  <a
-                    href={project.links.demo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400 transition-colors"
-                  >
-                    <ExternalLink className="w-5 h-5 mr-1" />
-                    <span>Demo</span>
-                  </a>
-                )}
+              
+              <div className="flex justify-between items-center">
+                <div className="flex space-x-3">
+                  {project.links?.github && (
+                    <a
+                      href={project.links.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                    >
+                      <GitBranch className="w-5 h-5" />
+                    </a>
+                  )}
+                  {project.links?.website && (
+                    <a
+                      href={project.links.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                    >
+                      <ExternalLink className="w-5 h-5" />
+                    </a>
+                  )}
+                </div>
+                
+                <Link 
+                  href={`/projects/${project.id}`}
+                  className="inline-flex items-center text-blue-500 hover:text-blue-600"
+                >
+                  <span className="mr-1">View Details</span>
+                  <ChevronRight className="w-4 h-4" />
+                </Link>
               </div>
             </div>
           </motion.div>
         ))}
       </div>
+      
+      {filteredProjects.length === 0 && (
+        <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+          <p className="text-gray-500 dark:text-gray-400">
+            No projects found in this category.
+          </p>
+        </div>
+      )}
     </div>
   );
 };
