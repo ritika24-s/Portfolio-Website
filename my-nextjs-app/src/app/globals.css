@@ -233,3 +233,122 @@ body {
     -webkit-overflow-scrolling: touch;
   }
 }
+
+/* Mobile Optimization Styles */
+
+/* Improved tap targets for mobile */
+@media (max-width: 640px) {
+  .mobile-tap-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .mobile-card-padding {
+    padding: 1rem !important;
+  }
+  
+  .mobile-text-base {
+    font-size: 16px !important;
+  }
+  
+  .mobile-heading-adjust {
+    font-size: 1.5rem !important;
+    line-height: 2rem !important;
+  }
+  
+  .mobile-compact-spacing {
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+}
+
+/* Safe area insets for notched phones */
+.safe-area-inset {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Better scrolling on iOS */
+.momentum-scroll {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Prevent text from being too small on mobile */
+@media (max-width: 640px) {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  
+  body {
+    touch-action: manipulation;
+  }
+}
+
+/* Better view on orientation change */
+@media screen and (orientation: landscape) {
+  .landscape-friendly {
+    height: auto !important;
+    min-height: 100vh;
+  }
+}
+
+/* Custom scrollbar for better touch experience */
+.thin-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(156, 163, 175, 0.5);
+  border-radius: 3px;
+}
+
+/* Fix for iOS input zoom */
+@media screen and (max-width: 640px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="search"],
+  input[type="password"],
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Mobile-specific animations */
+@media (max-width: 640px) {
+  .reduce-motion {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Responsive spacing utility classes */
+.mv-space-y {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .mv-space-y {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Improve button accessibility on mobile */
+@media (max-width: 640px) {
+  .mv-btn {
+    padding: 0.625rem 1rem !important;
+  }
+}

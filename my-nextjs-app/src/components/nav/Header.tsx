@@ -130,6 +130,38 @@ const Header = () => {
             >
               Research
             </Link>
+            {/* <Link 
+              href="/demos" 
+              className={`hover:text-violet-600 transition-colors ${
+                isActive('/demos') ? 'text-violet-600' : 'text-slate-600 dark:text-slate-300'
+              }`}
+            >
+              Demos
+            </Link>
+            <Link 
+              href="/blog" 
+              className={`hover:text-violet-600 transition-colors ${
+                isActive('/blog') ? 'text-violet-600' : 'text-slate-600 dark:text-slate-300'
+              }`}
+            >
+              Blogs 
+            </Link> */}
+            {/* <Link 
+              href="/journey" 
+              className={`hover:text-violet-600 transition-colors ${
+                isActive('/journey') ? 'text-violet-600' : 'text-slate-600 dark:text-slate-300'
+              }`}
+            >
+              Journey 
+            </Link> */}
+            <Link
+              href="/skills" 
+                className={`hover:text-violet-600 transition-colors ${
+                  isActive('/skills') ? 'text-violet-600' : 'text-slate-600 dark:text-slate-300'
+                }`}
+              >
+              Skills 
+            </Link>
           </div>
 
 

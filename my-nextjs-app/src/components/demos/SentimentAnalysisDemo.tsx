@@ -181,7 +181,7 @@ export const SentimentAnalysisDemo = () => {
         <h3 className="font-semibold mb-2">About this demo</h3>
         <p className="text-sm text-gray-600 dark:text-gray-300">
           This interactive demo showcases a simplified version of the sentiment analysis
-          techniques I've implemented at Scorebuddy. The production system incorporates
+          techniques I&apos;ve implemented at Scorebuddy. The production system incorporates
           more advanced features such as contextual understanding, domain adaptation, and
           aspect-based sentiment analysis.
         </p>
