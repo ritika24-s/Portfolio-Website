@@ -53,10 +53,22 @@ const TimelinePins = ({ items }: TimelinePinsProps) => {
     return () => window.removeEventListener('resize', calculatePaths);
   }, [items]);
 
+  // Calculate dynamic container height based on number of items
+  const calculateContainerHeight = () => {
+    // Base height + additional height per item
+    return Math.max(800, items.length * 150 + 200);
+  };
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-12">
-        <div className="relative min-h-[800px]" ref={containerRef}>
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+        <div 
+          ref={containerRef} 
+          className="relative w-full" 
+          style={{ 
+            minHeight: `${calculateContainerHeight()}px` 
+          }}
+        >
           {/* SVG Layer for Connections */}
           <svg className="absolute inset-0 w-full h-full pointer-events-none">
             <defs>

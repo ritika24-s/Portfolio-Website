@@ -10,7 +10,7 @@ import { timelineData } from '@/data/timelineData';
 
 export default function InteractivePage() {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-16"> {/* Added pt-16 for header */}
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-16 pb-16"> {/* Added pb-16 for bottom padding */}
       <TimelinePins items={timelineData} />
     </div>
   );
