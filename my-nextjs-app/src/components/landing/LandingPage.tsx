@@ -7,7 +7,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Sun, Moon, GraduationCap, Github, Mail, Linkedin, FileText, Glasses, ArrowUp } from 'lucide-react';
+import { Sun, Moon, GraduationCap, Github, Mail, Linkedin, FileText, Glasses } from 'lucide-react';
 import Link from 'next/link';
 
 const LandingPage = () => {
@@ -115,14 +115,6 @@ const LandingPage = () => {
           </div>
         </div>
       </main>
-
-      {/* Scroll to Top Button */}
-      {/* <button 
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="fixed bottom-8 right-8 bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 transition-colors"
-      >
-        <ArrowUp className="w-6 h-6" />
-      </button> */}
     </div>
   );
 };
