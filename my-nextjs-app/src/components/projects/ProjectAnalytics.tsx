@@ -29,8 +29,6 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell, LineChart, Line
 } from 'recharts';
-import { TimelineItem } from '@/types/timeline';
-import { projectData } from '@/data/projectData';
 import { ProjectAnalyticsProps, TechUsage, YearlyProjects } from '@/types/project';
 
 
@@ -64,7 +62,7 @@ export const ProjectAnalytics = ({ projects }: ProjectAnalyticsProps) => {
   const getTotalStats = () => {
     const totalTechs = new Set(projects.flatMap(p => p.skills)).size;
     const totalFeatures = projects.reduce((sum, p) => sum + p.features.length, 0);
-    const totalChallenges = projects.reduce((sum, p) => sum + p.challenges.length, 0);
+    const totalChallenges = projects.reduce((sum, p) => sum + (p.challenges?.length || 0), 0);
     
     return { totalTechs, totalFeatures, totalChallenges };
   };
@@ -147,8 +145,8 @@ export const ProjectAnalytics = ({ projects }: ProjectAnalyticsProps) => {
                 <PieChart>
                   <Pie
                     data={[
-                      { name: 'Frontend', value: projects.filter(p => p.technical.frontend).length },
-                      { name: 'Backend', value: projects.filter(p => p.technical.backend).length }
+                      { name: 'Frontend', value: projects.filter(p => p.techStack?.frontend).length },
+                      { name: 'Backend', value: projects.filter(p => p.techStack?.backend).length }
                     ]}
                     cx="50%"
                     cy="50%"

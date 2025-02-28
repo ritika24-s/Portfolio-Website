@@ -1,155 +1,88 @@
-/*
- * File: src/components/timeline/TimelinePins.tsx
- * Purpose: Interactive pins visualization with animated connecting paths
- * Dependencies: TimelineItem type, framer-motion
- */
-
-import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState } from 'react';
 import { TimelineItem } from '@/types/timeline';
-import TimelineModal from './TimelineModal';
 
 interface TimelinePinsProps {
   items: TimelineItem[];
 }
 
 const TimelinePins = ({ items }: TimelinePinsProps) => {
-  const [selectedItem, setSelectedItem] = useState<TimelineItem | null>(null);
-  const [paths, setPaths] = useState<string[]>([]);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    const calculatePaths = () => {
-      const pins = containerRef.current?.querySelectorAll('.timeline-pin');
-      if (!pins) return;
-
-      const newPaths: string[] = [];
-      for (let i = 0; i < pins.length - 1; i++) {
-        const pin1 = pins[i].getBoundingClientRect();
-        const pin2 = pins[i + 1].getBoundingClientRect();
-        const containerRect = containerRef.current!.getBoundingClientRect();
-
-        const x1 = pin1.left + pin1.width / 2 - containerRect.left;
-        const y1 = pin1.top + pin1.height / 2 - containerRect.top;
-        const x2 = pin2.left + pin2.width / 2 - containerRect.left;
-        const y2 = pin2.top + pin2.height / 2 - containerRect.top;
-
-        const midY = (y1 + y2) / 2;
-        const cp1x = x1;
-        const cp1y = midY;
-        const cp2x = x2;
-        const cp2y = midY;
-
-        const path = `M ${x1} ${y1} C ${cp1x} ${cp1y} ${cp2x} ${cp2y} ${x2} ${y2}`;
-        newPaths.push(path);
-      }
-      setPaths(newPaths);
-    };
-
-    calculatePaths();
-    window.addEventListener('resize', calculatePaths);
-    return () => window.removeEventListener('resize', calculatePaths);
-  }, [items]);
+  const [selectedItem, setSelectedItem] = useState<number | null>(null);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-12">
-        <div className="relative min-h-[800px]" ref={containerRef}>
-          {/* SVG Layer for Connections */}
-          <svg className="absolute inset-0 w-full h-full pointer-events-none">
-            <defs>
-              <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.2" />
-                <stop offset="50%" stopColor="#3B82F6" stopOpacity="1" />
-                <stop offset="100%" stopColor="#3B82F6" stopOpacity="0.2" />
-              </linearGradient>
-            </defs>
-            {paths.map((path, index) => (
-              <motion.path
-                key={index}
-                d={path}
-                fill="none"
-                stroke="url(#lineGradient)"
-                strokeWidth="2"
-                strokeDasharray="8,8"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ 
-                  pathLength: 1, 
-                  opacity: 1,
-                }}
-                transition={{ 
-                  duration: 1,
-                  ease: "easeInOut"
-                }}
-              />
-            ))}
-          </svg>
-
-          {/* Pins */}
-          <div className="relative">
-            {items.map((item, index) => (
-              <motion.div
-                key={item.id}
-                className={`timeline-pin absolute transform -translate-x-1/2 -translate-y-1/2
-                  ${index % 2 === 0 ? 'left-1/3' : 'left-2/3'}`}
-                style={{ top: `${(index + 1) * 150}px` }}
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: index * 0.2 }}
-              >
-                {/* Pin Button */}
-                <motion.button
-                  onClick={() => setSelectedItem(item)}
-                  className={`w-12 h-12 rounded-full shadow-lg flex items-center justify-center
-                    relative z-10 transition-colors
-                    ${item.type === 'education' ? 'bg-blue-500' : 
-                      item.type === 'work' ? 'bg-green-500' : 'bg-purple-500'}`}
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <motion.span
-                    className="absolute w-full h-full rounded-full bg-current"
-                    initial={{ scale: 1, opacity: 0.35 }}
-                    animate={{ scale: 1.5, opacity: 0 }}
-                    transition={{ 
-                      repeat: Infinity,
-                      duration: 2,
-                      ease: "easeOut"
-                    }}
-                  />
-                  <span className="text-white text-xl">•</span>
-                </motion.button>
-
-                {/* Label */}
-                <motion.div
-                  className={`absolute top-14 whitespace-nowrap
-                    ${index % 2 === 0 ? 'left-0' : 'right-0'}
-                    ${index % 2 === 0 ? 'text-left' : 'text-right'}`}
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.2 + 0.2 }}
-                >
-                  <h3 className="font-semibold text-lg">{item.title}</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">{item.date}</p>
-                </motion.div>
-              </motion.div>
-            ))}
+    <div className="max-w-4xl mx-auto px-4 py-12">
+      <h2 className="text-3xl font-bold mb-16 text-center">Professional Journey</h2>
+      
+      <div className="relative flex flex-col">
+        {items.map((item, index) => (
+          <div key={item.id} className="mb-20">
+            {/* Left or right positioning based on index */}
+            <div className={`flex ${index % 2 === 0 ? 'justify-start' : 'justify-end'}`}>
+              {/* Content card */}
+              <div className="w-5/12 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg relative">
+                {/* Timeline marker */}
+                <div className={`absolute ${index % 2 === 0 ? 'right-0 translate-x-1/2' : 'left-0 -translate-x-1/2'} top-1/2 -translate-y-1/2 w-8 h-8 rounded-full z-10 flex items-center justify-center cursor-pointer ${
+                  item.type === 'education' ? 'bg-blue-500' : 
+                  item.type === 'work' ? 'bg-green-500' : 'bg-purple-500'
+                }`} onClick={() => setSelectedItem(selectedItem === item.id ? null : item.id)}>
+                  <span className="text-white font-bold">•</span>
+                </div>
+                
+                {/* Zigzag line */}
+                {index < items.length - 1 && (
+                  <div className={`absolute ${index % 2 === 0 ? 'right-4' : 'left-4'} top-1/2 h-20 w-[70%] border-b-4 border-dashed border-gray-300 dark:border-gray-600 ${
+                    index % 2 === 0 ? 'border-r-4 rounded-br-3xl' : 'border-l-4 rounded-bl-3xl'
+                  }`} style={{ 
+                    marginTop: '10px',
+                    transform: `${index % 2 === 0 ? 'translateX(100%)' : 'translateX(-100%)'}` 
+                  }}></div>
+                )}
+                
+                <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">{item.date}</p>
+                <p className="text-gray-600 dark:text-gray-300">{item.description}</p>
+                
+                {/* Show details if selected */}
+                {selectedItem === item.id && (
+                  <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    {item.skills && (
+                      <div className="mb-4">
+                        <h4 className="font-medium mb-2">Skills</h4>
+                        <div className="flex flex-wrap gap-2">
+                          {item.skills.map(skill => (
+                            <span key={skill} className="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded-full">
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    
+                    {item.location && (
+                      <div className="mb-4">
+                        <h4 className="font-medium mb-1">Location</h4>
+                        <p className="text-sm text-gray-600 dark:text-gray-300">{item.location}</p>
+                      </div>
+                    )}
+                    
+                    {item.links && Object.keys(item.links).length > 0 && (
+                      <div className="flex gap-3">
+                        {item.links.website && (
+                          <a href={item.links.website} target="_blank" rel="noopener noreferrer" 
+                             className="text-blue-500 hover:underline">Website</a>
+                        )}
+                        {item.links.github && (
+                          <a href={item.links.github} target="_blank" rel="noopener noreferrer"
+                             className="text-blue-500 hover:underline">GitHub</a>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
+        ))}
       </div>
-
-      {/* Modal */}
-      <AnimatePresence>
-        {selectedItem && (
-          <TimelineModal
-            item={selectedItem}
-            isOpen={!!selectedItem}
-            onClose={() => setSelectedItem(null)}
-          />
-        )}
-      </AnimatePresence>
     </div>
   );
 };

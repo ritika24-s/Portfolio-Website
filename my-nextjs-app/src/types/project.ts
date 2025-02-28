@@ -1,4 +1,4 @@
-import { projectData } from "@/data/projectData";
+import { projectsData } from "@/data/projectData";
 
 export type ProjectCategory = 'research' | 'nlp' | 'fullstack';
 
@@ -53,5 +53,5 @@ export interface YearlyProjects {
 
 
 export interface ProjectAnalyticsProps {
-  projects: typeof projectData;
+  projects: typeof projectsData;
 }
