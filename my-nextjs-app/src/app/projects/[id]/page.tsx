@@ -7,7 +7,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { ProjectDetail } from '@/components/projects/ProjectDetail';
-import { getProjectById } from '@/data/projectData';
+import { getProjectById } from '@/utils/project';
 import { PageTransition } from '@/components/common/PageTransition';
 import { useRouter } from 'next/navigation';
 

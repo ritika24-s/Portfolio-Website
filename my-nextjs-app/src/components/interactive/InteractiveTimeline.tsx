@@ -18,7 +18,8 @@ const InteractiveTimeline = () => {
 
         {/* Timeline Items */}
         <div className="relative">
-          {timelineData.map((item, index) => (
+          {/* parse the data in descending order */}
+          {timelineData.reverse().map((item, index) => (
             <div 
               key={item.id}
               className={`flex items-center mb-24 ${

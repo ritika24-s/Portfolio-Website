@@ -3,52 +3,12 @@
  * Purpose: Multilingual content for about page
  */
 
-interface AboutContent {
-  title: string;
-  description: string;
-  stats: {
-    experience: string;
-    projects: string;
-    publications: string;
-    languages: string;
-  };
-  languages: {
-    english: string;
-    hindi: string;
-    german: string;
-  };
-  hobbies: {
-    traveling: string;
-    music: string;
-    reading: string;
-    photography: string;
-  };
-  research: {
-    nlp: {
-      title: string;
-      description: string;
-    };
-    ml: {
-      title: string;
-      description: string;
-    };
-    web: {
-      title: string;
-      description: string;
-    };
-  };
-}
-
-interface MultilingualContent {
-  en: AboutContent;
-  de: AboutContent;
-  hi: AboutContent;
-}
+import { MultilingualContent } from "@/types/about";
 
 export const aboutContent: MultilingualContent = {
   en: {
     title: "Hi, I'm Ritika Sharma",
-    description: "NLP Engineer & Full Stack Developer with 6+ years of experience, based in Dublin, Ireland. I'm passionate about building AI-powered applications that make a difference in people's lives.",
+    description: "NLP Engineer & Full Stack Developer with 6+ years of experience, based in Dublin, Ireland. I specialize in production-ready AI solutions and scalable NLP pipelines for multimodal applications, integrating text, speech, and vision. My expertise includes sentiment analysis, facial expression recognition, and transforming research methodologies into deployable AI solutions.",
     stats: {
       experience: "Years Experience",
       projects: "Projects",
@@ -62,28 +22,28 @@ export const aboutContent: MultilingualContent = {
     },
     hobbies: {
       traveling: "Traveling",
-      music: "Music",
-      reading: "Reading",
-      photography: "Photography"
+      music: "Knitting",
+      reading: "Book Clubs",
+      photography: "Hiking"
     },
     research: {
       nlp: {
         title: "Natural Language Processing",
-        description: "Focusing on transformer architectures and multilingual models"
+        description: "Focusing on multimodal AI, integrating text, speech, and vision for affective computing applications"
       },
       ml: {
         title: "Machine Learning",
-        description: "Deep learning and neural networks for real-world applications"
+        description: "Developing AI systems that capture the nuances of human emotion and communication"
       },
       web: {
         title: "Web Technologies",
-        description: "Modern web frameworks and serverless architectures"
+        description: "Building scalable, production-ready microservices architectures"
       }
     }
   },
   de: {
     title: "Hallo, ich bin Ritika Sharma",
-    description: "NLP-Ingenieurin & Full-Stack-Entwicklerin mit über 6 Jahren Erfahrung in Dublin, Irland. Ich entwickle leidenschaftlich gerne KI-gestützte Anwendungen, die das Leben der Menschen positiv beeinflussen.",
+    description: "NLP-Ingenieurin & Full-Stack-Entwicklerin mit über 6 Jahren Erfahrung in Dublin, Irland. Ich bin spezialisiert auf produktionsreife KI-Lösungen und skalierbare NLP-Pipelines für multimodale Anwendungen, die Text, Sprache und Bild integrieren. Meine Expertise umfasst Stimmungsanalyse, Gesichtsausdruckserkennung und die Umsetzung von Forschungsmethoden in einsetzbare KI-Lösungen.",
     stats: {
       experience: "Jahre Erfahrung",
       projects: "Projekte",
@@ -97,28 +57,28 @@ export const aboutContent: MultilingualContent = {
     },
     hobbies: {
       traveling: "Reisen",
-      music: "Musik",
-      reading: "Lesen",
-      photography: "Fotografie"
+      music: "Stricken",
+      reading: "Buchclubs",
+      photography: "Wandern"
     },
     research: {
       nlp: {
-        title: "Naturliche Sprachverarbeitung",
-        description: "Fokus auf Transformer-Architekturen und mehrsprachigen Modellen"
+        title: "Natürliche Sprachverarbeitung",
+        description: "Fokus auf multimodaler KI, Integration von Text, Sprache und Bild für Affective Computing"
       },
       ml: {
         title: "Maschinelles Lernen",
-        description: "Deep Learning und neuronale Netze für praktische Anwendungen"
+        description: "Entwicklung von KI-Systemen, die Nuancen menschlicher Emotion und Kommunikation erfassen"
       },
       web: {
         title: "Web-Technologien",
-        description: "Moderne Web-Frameworks und serverlose Architekturen"
+        description: "Aufbau skalierbarer, produktionsreifer Microservices-Architekturen"
       }
     }
   },
   hi: {
     title: "नमस्ते, मैं रितिका शर्मा हूं",
-    description: "डबलिन, आयरलैंड में स्थित 6+ वर्षों के अनुभव के साथ NLP इंजीनियर और फुल स्टैक डेवलपर। मैं AI-संचालित एप्लिकेशन बनाने के लिए उत्साहित हूं जो लोगों के जीवन में बदलाव लाते हैं।",
+    description: "डबलिन, आयरलैंड में स्थित 6+ वर्षों के अनुभव के साथ NLP इंजीनियर और फुल स्टैक डेवलपर। मैं मल्टीमॉडल अनुप्रयोगों के लिए उत्पादन-तैयार AI समाधान और स्केलेबल NLP पाइपलाइन बनाने में विशेषज्ञता रखती हूं, जो टेक्स्ट, स्पीच, और विज़न को एकीकृत करते हैं। मेरी विशेषज्ञता में सेंटिमेंट एनालिसिस, फेशियल एक्सप्रेशन रिकॉग्निशन, और रिसर्च मेथडोलॉजीज को डिप्लॉयेबल AI सॉल्यूशंस में ट्रांसफॉर्म करना शामिल है।",
     stats: {
       experience: "वर्षों का अनुभव",
       projects: "प्रोजेक्ट्स",
@@ -132,22 +92,22 @@ export const aboutContent: MultilingualContent = {
     },
     hobbies: {
       traveling: "यात्रा",
-      music: "संगीत",
-      reading: "पढ़ना",
-      photography: "फोटोग्राफी"
+      music: "बुनाई",
+      reading: "पुस्तक क्लब",
+      photography: "हाइकिंग"
     },
     research: {
       nlp: {
         title: "प्राकृतिक भाषा प्रसंस्करण",
-        description: "ट्रांसफॉर्मर आर्किटेक्चर और बहुभाषी मॉडल पर ध्यान केंद्रित"
+        description: "मल्टीमॉडल AI पर ध्यान केंद्रित, टेक्स्ट, स्पीच और विज़न को अफेक्टिव कंप्यूटिंग अनुप्रयोगों के लिए एकीकृत करना"
       },
       ml: {
         title: "मशीन लर्निंग",
-        description: "वास्तविक अनुप्रयोगों के लिए डीप लर्निंग और न्यूरल नेटवर्क"
+        description: "ऐसे AI सिस्टम विकसित करना जो मानव भावना और संचार की छटाओं को पकड़ते हैं"
       },
       web: {
         title: "वेब टेक्नोलॉजीज",
-        description: "आधुनिक वेब फ्रेमवर्क और सर्वरलेस आर्किटेक्चर"
+        description: "स्केलेबल, उत्पादन-तैयार माइक्रोसर्विसेज आर्किटेक्चर का निर्माण"
       }
     }
   }
