@@ -69,11 +69,11 @@ const LandingPage = () => {
       <main className="pt-24 container mx-auto px-4">
         <div className="flex flex-col items-center justify-center min-h-[80vh] space-y-12">
           <h1 className="text-4xl md:text-6xl font-bold text-center">
-            Welcome to My Portfolio
+            Welcome to Ritika&apos;s Portfolio
           </h1>
           
           <p className="text-xl text-center max-w-2xl">
-            Choose your preferred way to explore my journey
+            Choose your preferred way to explore my professional journey
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-4xl">
@@ -94,7 +94,7 @@ const LandingPage = () => {
                 <FileText className="w-12 h-12 mx-auto mb-4 text-green-500" />
                 <h3 className="text-xl font-semibold mb-2">Plain</h3>
                 <p className="text-gray-600 dark:text-gray-300">
-                  View my portfolio in a simple, clean layout
+                  View the portfolio in a simple, clean layout
                 </p>
               </div>
             </Link>
@@ -108,7 +108,7 @@ const LandingPage = () => {
                 <div className="w-12 h-12 mx-auto mb-4 text-purple-500">🎲</div>
                 <h3 className="text-xl font-semibold mb-2">Surprise Me!</h3>
                 <p className="text-gray-600 dark:text-gray-300">
-                  Let fate decide how you explore
+                  Let fate decide how you explore.
                 </p>
               </div>
             </Link>
