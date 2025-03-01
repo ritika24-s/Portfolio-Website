@@ -1,9 +1,0 @@
-{
-    "name": "portfolio-website",
-    "private": true,
-    "scripts": {
-      "build": "cd my-nextjs-app && npm run build",
-      "install": "cd my-nextjs-app && npm install",
-      "dev": "cd my-nextjs-app && npm run dev"
-    }
-  }
