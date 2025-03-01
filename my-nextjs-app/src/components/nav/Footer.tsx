@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import React from 'react';
-import { ContactForm } from '../contact/ContactForm';
 
 const Footer = () => {
   return (

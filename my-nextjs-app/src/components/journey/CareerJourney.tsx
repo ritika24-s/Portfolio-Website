@@ -11,7 +11,6 @@ import {
   Briefcase, 
   Rocket, 
   Calendar, 
-  Clock, 
   Award, 
   Code
 } from 'lucide-react';

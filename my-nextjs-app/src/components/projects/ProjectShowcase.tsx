@@ -6,10 +6,10 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Project } from '@/types/projects';
+import { Project } from '@/types/project';
 import { 
   BookOpen, Briefcase, Code, Server, 
-  Database, GitBranch, ChevronRight,
+  GitBranch, ChevronRight,
   ExternalLink
 } from 'lucide-react';
 

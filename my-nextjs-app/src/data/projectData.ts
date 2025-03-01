@@ -10,6 +10,7 @@ export const projectsData: Project[] = [
     id: 1,
     title: "Predicting Big-5 Personality from Facial Action Units",
     category: "research",
+    date: "2021-2022",
     description: "MSc thesis project at Trinity College Dublin combining computer vision and machine learning to predict personality traits from facial expressions.",
     longDescription: `
       Research project focused on developing a novel approach to personality prediction
@@ -73,6 +74,7 @@ export const projectsData: Project[] = [
     id: 2,
     title: "NLP-Powered Customer Support Quality Assurance Analytics",
     category: "nlp",
+    date: "2022-Present",
     description: "Developed AI-driven SaaS platform for analyzing customer-agent interactions using advanced NLP techniques to provide enhanced quality assurance at Scorebuddy.",
     longDescription: `
       Developed and deployed a comprehensive NLP solution at Scorebuddy for analyzing 
@@ -125,6 +127,7 @@ export const projectsData: Project[] = [
     id: 3,
     title: "Product Management System",
     category: "fullstack",
+    date: "2021",
     description: "Full-stack application for efficient product management and inventory tracking.",
     longDescription: `
       Developed a comprehensive product management system with real-time updates,
@@ -140,7 +143,7 @@ export const projectsData: Project[] = [
     },
     links: {
       github: "https://github.com/ritika24-s/Product-Management-System",
-      demo: "demo_link_here" // Add if available
+      // demo: "demo_link_here" // Add if available
     },
     images: ["/api/placeholder/800/400"],
     featured: false,

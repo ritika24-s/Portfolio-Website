@@ -43,7 +43,7 @@ export default function DemosPage() {
               <div className="p-6">
                 <div className="space-y-4">
                   <p className="text-gray-600 dark:text-gray-300">
-                    I'm working on additional interactive demos showcasing:
+                    I&apos;m working on additional interactive demos showcasing:
                   </p>
                   <ul className="space-y-2">
                     <li className="flex items-center text-gray-600 dark:text-gray-300">

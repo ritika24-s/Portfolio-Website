@@ -9,11 +9,12 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { 
-  Menu, X, Github, Mail, Linkedin, 
-  Sun, Moon, FileText, Home, Code,
-  Layout, Phone
+  Menu, X, Mail, 
+  FileText, Home, Code,
+  Layout, Phone,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 
 export const MobileNav = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -92,7 +93,7 @@ export const MobileNav = () => {
                     rel="noopener noreferrer"
                     className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
-                    <Github className="w-6 h-6" />
+                    <FaGithub className="w-6 h-6" />
                   </a>
                   <a
                     href="mailto:sharmari@tcd.ie"
@@ -106,7 +107,7 @@ export const MobileNav = () => {
                     rel="noopener noreferrer"
                     className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"
                   >
-                    <Linkedin className="w-6 h-6" />
+                    <FaLinkedin className="w-6 h-6" />
                   </a>
                 </div>
                 <a

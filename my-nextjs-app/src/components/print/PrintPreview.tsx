@@ -7,7 +7,7 @@ import React from 'react';
 import { X, Printer, Settings, Eye } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { timelineData } from '@/data/timelineData';
-
+import Image from 'next/image';
 interface PrintPreviewProps {
   isOpen: boolean;
   onClose: () => void;
@@ -97,10 +97,12 @@ export const PrintPreview = ({ isOpen, onClose, onPrint }: PrintPreviewProps) =>
                     <p className="text-gray-600 dark:text-gray-400">github.com/yourusername</p>
                   </div>
                   {printOptions.qr && (
-                    <img 
+                    <Image 
                       src={qrCodeUrl} 
                       alt="Portfolio QR Code" 
                       className="w-24 h-24"
+                      width={96}
+                      height={96}
                     />
                   )}
                 </div>

@@ -9,10 +9,10 @@ import {
   Code, GitBranch, ChevronDown, ChevronUp, 
   Server, Database, Layout, BarChart2, Award, 
   AlertCircle, CheckCircle, BookOpen, 
-  Play, PauseCircle, LineChart, ExternalLink
+  Play, LineChart, ExternalLink
 } from 'lucide-react';
-import Link from 'next/link';
-import { Project } from '@/types/projects';
+
+import { Project } from '@/types/project';
 
 interface ProjectDetailProps {
   project: Project;
@@ -240,7 +240,7 @@ export const ProjectDetail = ({ project }: ProjectDetailProps) => {
               className="mt-4"
             >
               <ul className="space-y-2">
-                {project.features.map((feature, idx) => (
+                {project.features.map((feature: string, idx: number) => (
                   <li key={idx} className="flex items-start">
                     <CheckCircle className="w-5 h-5 text-green-500 mr-2 shrink-0" />
                     <span className="text-gray-700 dark:text-gray-300">{feature}</span>
@@ -353,7 +353,7 @@ export const ProjectDetail = ({ project }: ProjectDetailProps) => {
                 className="mt-4"
               >
                 <ul className="space-y-4">
-                  {project.challenges.map((challenge, idx) => (
+                  {project.challenges.map((challenge: string, idx: number) => (
                     <li key={idx} className="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
                       <p className="text-gray-700 dark:text-gray-300 flex items-start">
                         <AlertCircle className="w-5 h-5 text-red-500 mr-2 shrink-0" />

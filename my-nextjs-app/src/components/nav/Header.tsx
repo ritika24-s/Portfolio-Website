@@ -12,11 +12,10 @@ import { usePathname } from 'next/navigation';
 
 // Import icons from lucide-react library
 import { 
-  Sun, Moon, Mail, 
+  Sun, Moon,
   FileText, Glasses,
   X, Menu,
 } from 'lucide-react';
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
 
 const Header = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -68,7 +67,7 @@ const Header = () => {
       // Cleanup on unmount
       document.body.style.fontSize = '1rem';
     };
-  }, []);
+  }, [fontSize]);
   
   const isActive = (path: string) => {
     return pathname === path;

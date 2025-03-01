@@ -46,7 +46,7 @@ export default function JourneyPage() {
                   <p>
                     My career journey represents a deliberate progression from software engineering 
                     to specialized NLP expertise. Beginning with a strong technical foundation in 
-                    computer science, I've consistently sought opportunities to deepen my knowledge 
+                    computer science, I&apos;ve consistently sought opportunities to deepen my knowledge 
                     and expertise in natural language processing and machine learning.
                   </p>
                   
@@ -77,7 +77,7 @@ export default function JourneyPage() {
                   
                   <h3>NLP Engineering Focus</h3>
                   <p>
-                    In my current role at Scorebuddy, I've fully transitioned to NLP engineering, 
+                    In my current role at Scorebuddy, I&apos;ve fully transitioned to NLP engineering, 
                     designing and implementing production-ready NLP systems. This position has allowed 
                     me to apply both my software engineering expertise and AI knowledge to build 
                     scalable solutions for real-world language processing challenges.
@@ -87,7 +87,7 @@ export default function JourneyPage() {
                   <p>
                     Throughout this journey, the common thread has been my interest in building 
                     intelligent systems that solve complex problems. From software engineering to 
-                    NLP specialization, I've maintained a focus on creating robust, scalable solutions 
+                    NLP specialization, I&apos;ve maintained a focus on creating robust, scalable solutions 
                     that deliver tangible value. This combination of software engineering fundamentals 
                     and specialized NLP expertise allows me to bridge the gap between research and 
                     production—translating cutting-edge techniques into practical applications.

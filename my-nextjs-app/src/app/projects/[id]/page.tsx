@@ -1,52 +1,54 @@
 /*
  * File: src/app/projects/[id]/page.tsx
- * Purpose: Project detail page component
+ * Purpose: Project detail page server component
  */
 
-'use client';
+import React from 'react';
+import { Metadata } from 'next';
+import { projectsData } from '@/data/projectData';
+import ClientProjectDetail from './client-page';
 
-import React, { useState, useEffect } from 'react';
-import { ProjectDetail } from '@/components/projects/ProjectDetail';
-import { getProjectById } from '@/utils/project';
-import { PageTransition } from '@/components/common/PageTransition';
-import { useRouter } from 'next/navigation';
-
+// Define types for the params
 interface ProjectDetailPageProps {
   params: {
     id: string;
   };
 }
 
-export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
-  const [isLoading, setIsLoading] = useState(true);
-  const router = useRouter();
-  
+// Generate static params for all projects at build time
+export async function generateStaticParams() {
+  return projectsData.map((project) => ({
+    id: project.id.toString(),
+  }));
+}
+
+// Generate metadata for the page
+export async function generateMetadata({ 
+  params 
+}: ProjectDetailPageProps): Promise<Metadata> {
   const projectId = parseInt(params.id);
-  const project = getProjectById(projectId);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 1000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Redirect to projects page if project not found
-  useEffect(() => {
-    if (!isLoading && !project) {
-      router.push('/projects');
-    }
-  }, [isLoading, project, router]);
-
+  const project = projectsData.find(p => p.id === projectId);
+  
   if (!project) {
-    return null;
+    return {
+      title: 'Project Not Found',
+      description: 'The requested project could not be found.'
+    };
   }
+  
+  return {
+    title: project.title,
+    description: project.description,
+    keywords: project.skills.join(', '),
+    openGraph: {
+      title: project.title,
+      description: project.description,
+      type: 'article'
+    }
+  };
+}
 
-  return (
-    <PageTransition isLoading={isLoading}>
-      <div className="pt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <ProjectDetail project={project} />
-        </div>
-      </div>
-    </PageTransition>
-  );
+// Server Component
+export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
+  return <ClientProjectDetail params={params} />;
 }

@@ -29,8 +29,7 @@ import React, { useState, useEffect } from 'react';
 import { timelineData } from '@/data/timelineData';
 import { 
   BookOpen, Briefcase, Code, ChevronRight,
-  ExternalLink, Mail, Calendar,
-  Printer, QrCode
+  ExternalLink, Calendar, Printer
 } from 'lucide-react';
 import {FaGithub} from 'react-icons/fa';
 import {PrintPreview} from '@/components/print/PrintPreview';
@@ -60,7 +59,7 @@ export default function PlainPage() {
   }, []);
 
   // Generate QR Code URL for the portfolio
-  const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(window.location.href)}`;
+  // const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(window.location.href)}`;
 
   // Filter items by type
   const educationItems = timelineData.filter(item => item.type === 'education');

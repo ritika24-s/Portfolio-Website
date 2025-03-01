@@ -50,7 +50,7 @@ export const ProjectAnalytics = ({ projects }: ProjectAnalyticsProps) => {
   const getYearlyProjects = (): YearlyProjects[] => {
     const yearCount: Record<string, number> = {};
     projects.forEach(project => {
-      const year = new Date().getFullYear().toString(); // Replace with actual project year
+      const year = new Date(project.date).getFullYear().toString(); // Replace with actual project year
       yearCount[year] = (yearCount[year] || 0) + 1;
     });
     return Object.entries(yearCount)

@@ -20,6 +20,7 @@ export interface TechStack {
 export interface Project {
   id: number;
   title: string;
+  date: string;
   category: ProjectCategory;
   description: string;
   longDescription?: string;
@@ -37,7 +38,7 @@ export interface Project {
 }
   
 export interface ProjectShowcaseProps {
-  projects: ProjectDetails[];
+  projects: Project[];
 }
 
 export interface TechUsage {

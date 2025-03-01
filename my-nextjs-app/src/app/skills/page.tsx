@@ -50,7 +50,7 @@ export default function SkillsPage() {
                   
                   <h3>NLP Expertise</h3>
                   <p>
-                    I've developed and deployed numerous NLP solutions, including sentiment analysis, 
+                    I&apos;ve developed and deployed numerous NLP solutions, including sentiment analysis, 
                     topic classification, named entity recognition, and automated QA systems. My 
                     experience spans the full NLP pipeline—from text preprocessing and feature 
                     engineering to model development and deployment.
@@ -58,7 +58,7 @@ export default function SkillsPage() {
                   
                   <h3>Software Engineering</h3>
                   <p>
-                    With over 6 years of professional experience, I've built everything from 
+                    With over 6 years of professional experience, I&apos;ve built everything from 
                     microservices architectures to full-stack applications. I emphasize clean 
                     code, comprehensive testing, and scalable design in all my work.
                   </p>
@@ -66,7 +66,7 @@ export default function SkillsPage() {
                   <h3>Machine Learning</h3>
                   <p>
                     My expertise includes developing machine learning pipelines, implementing 
-                    deep learning models, and optimizing for production environments. I've worked 
+                    deep learning models, and optimizing for production environments. I&apos;ve worked 
                     with various frameworks and libraries to build robust ML solutions.
                   </p>
                   

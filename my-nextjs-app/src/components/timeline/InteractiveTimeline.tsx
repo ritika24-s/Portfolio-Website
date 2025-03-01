@@ -5,8 +5,7 @@
  */
 
 import React, { useState } from 'react';
-import { MessageCircle, Globe, PlayCircle, MapPin } from 'lucide-react';
-import { FaGithub } from 'react-icons/fa';
+import { MessageCircle } from 'lucide-react';
 import { timelineData } from '@/data/timelineData';
 import { TimelineItem } from '@/types/timeline';
 

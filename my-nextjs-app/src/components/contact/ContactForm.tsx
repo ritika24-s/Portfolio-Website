@@ -85,6 +85,7 @@ export const ContactForm = () => {
       });
 
     } catch (error) {
+      console.error('EmailJS error:', error);
       setFormStatus({
         type: 'error',
         message: 'Failed to send message. Please try again later.'

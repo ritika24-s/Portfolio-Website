@@ -10,14 +10,12 @@ import { ProjectShowcase } from '@/components/projects/ProjectShowcase';
 import { ProjectAnalytics } from '@/components/projects/ProjectAnalytics';
 import { FeaturedProject } from '@/components/projects/FeaturedProject';
 import { projectsData } from '@/data/projectData';
-import { PageTransition } from '@/components/common/PageTransition';
 import { LayoutGrid, ChartBar, Star } from 'lucide-react';
 
 
 type ViewMode = 'showcase' | 'analytics' | 'featured';
 
 export default function ProjectsPage() {
-  const [isLoading, setIsLoading] = useState(true);
   const [viewMode, setViewMode] = useState<ViewMode>('showcase');
 
   const featuredProject = projectsData.find(p => p.category === 'research' && p.featured);

@@ -1,27 +1,15 @@
 /*
  * File: src/components/search/SearchAndFilter.tsx
  * Purpose: Search and filter functionality for portfolio items
- * Key features added:
-    1. Search Functionality:
-        Real-time search across all content
-        Search in titles, descriptions, and skills
-        Clear visual feedback
-        Keyboard accessible
-    2. Skill Filtering:
-        Toggle filter visibility
-        Multi-select skill filters
-        Visual feedback for active filters
-        Easy filter removal
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Search, X, Filter } from 'lucide-react';
 import { TimelineItem } from '@/types/timeline';
 import { getAllUniqueSkills } from '@/utils/TimelineUtils';
-import { trackSearchAnalytics, trackFilterAnalytics } from '@/utils/analytics';
 
 // Add debounce utility
-const debounce = <T extends (...args: any[]) => void>(
+const debounce = <T extends (...args: Parameters<T>) => void>(
   func: T,
   wait: number
 ): ((...args: Parameters<T>) => void) => {
@@ -49,27 +37,6 @@ export const SearchAndFilter = ({ onFilterChange, items }: SearchAndFilterProps)
   const [showFilters, setShowFilters] = useState(false);
   const uniqueSkills = getAllUniqueSkills();
   const [activePreset, setActivePreset] = useState<string | null>(null);
-
-  // Track search with debounce
-  const trackSearch = useCallback(
-    debounce((term: string, resultCount: number) => {
-      trackSearchAnalytics({
-        term,
-        resultCount,
-        timestamp: new Date().toISOString()
-      });
-    }, 1000),
-    []
-  );
-
-  // Track filter usage
-  const trackFilter = useCallback((filterType: string, value: string | string[]) => {
-    trackFilterAnalytics({
-      filterType,
-      value,
-      timestamp: new Date().toISOString()
-    });
-  }, []);
 
   // Define filter presets
   const filterPresets: FilterPreset[] = [
@@ -109,50 +76,45 @@ export const SearchAndFilter = ({ onFilterChange, items }: SearchAndFilterProps)
     }
   ];
 
-  const handleSearch = (term: string) => {
-    setSearchTerm(term);
-    setActivePreset(null);
-    
-    let filtered = items;
-    
-    if (term.trim()) {
-      const searchTerms = term.toLowerCase().split(' ');
-      filtered = items.filter(item => {
-        const searchableText = `
-          ${item.title} 
-          ${item.description} 
-          ${item.type} 
-          ${item.skills?.join(' ') || ''}
-        `.toLowerCase();
-        
-        return searchTerms.every(term => searchableText.includes(term));
-      });
-    }
+  // Memoized search handler
+  const handleSearch = useCallback(
+    debounce((term: string) => {
+      setSearchTerm(term);
+      setActivePreset(null);
+      
+      let filtered = items;
+      
+      if (term.trim()) {
+        const searchTerms = term.toLowerCase().split(' ');
+        filtered = items.filter(item => {
+          const searchableText = `
+            ${item.title} 
+            ${item.description} 
+            ${item.type} 
+            ${item.skills?.join(' ') || ''}
+          `.toLowerCase();
+          
+          return searchTerms.every(term => searchableText.includes(term));
+        });
+      }
 
-    // Track search analytics
-    trackSearch(term, filtered.length);
-    onFilterChange(filtered);
-  };
+      onFilterChange(filtered);
+    }, 300),
+    [items, onFilterChange]
+  );
 
-  const toggleSkill = (skill: string) => {
+  const toggleSkill = useCallback((skill: string) => {
     const updatedSkills = selectedSkills.includes(skill)
       ? selectedSkills.filter(s => s !== skill)
       : [...selectedSkills, skill];
     
     setSelectedSkills(updatedSkills);
     
-    // Track skill filter usage
-    trackFilter('skill', skill);
-    
-    filterItems(searchTerm, updatedSkills);
-  };
-
-  const filterItems = (term: string, skills: string[]) => {
-    let filtered = [...items];
+    let filtered = items;
 
     // Search term filter
-    if (term) {
-      const searchLower = term.toLowerCase();
+    if (searchTerm) {
+      const searchLower = searchTerm.toLowerCase();
       filtered = filtered.filter(item =>
         item.title.toLowerCase().includes(searchLower) ||
         item.description.toLowerCase().includes(searchLower) ||
@@ -161,17 +123,17 @@ export const SearchAndFilter = ({ onFilterChange, items }: SearchAndFilterProps)
     }
 
     // Skills filter
-    if (skills.length > 0) {
+    if (updatedSkills.length > 0) {
       filtered = filtered.filter(item =>
-        item.skills?.some(skill => skills.includes(skill))
+        item.skills?.some(skill => updatedSkills.includes(skill))
       );
     }
 
     onFilterChange(filtered);
-  };
+  }, [items, searchTerm, onFilterChange, selectedSkills]);
 
   // Apply filter preset
-  const applyPreset = (presetId: string) => {
+  const applyPreset = useCallback((presetId: string) => {
     const preset = filterPresets.find(p => p.id === presetId);
     if (!preset) return;
 
@@ -180,18 +142,15 @@ export const SearchAndFilter = ({ onFilterChange, items }: SearchAndFilterProps)
     
     const filtered = preset.filter(items);
     
-    // Track preset filter usage
-    trackFilter('preset', presetId);
-    
     onFilterChange(filtered);
-  };
+  }, [items,filterPresets, onFilterChange]);
 
-  const clearFilters = () => {
+  const clearFilters = useCallback(() => {
     setSearchTerm('');
     setSelectedSkills([]);
     setActivePreset(null);
     onFilterChange(items);
-  };
+  }, [items, onFilterChange]);
 
   return (
     <div className="space-y-4">
