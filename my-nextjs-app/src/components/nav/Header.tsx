@@ -214,14 +214,21 @@ const Header = () => {
               >
                 <Glasses className="w-5 h-5" />
               </button>
-              <a
-                href="/resume.pdf"
+              <Link
+                href="/resume"
                 className="flex items-center space-x-2 bg-violet-500 text-white px-4 py-2 rounded-lg hover:bg-violet-600 transition-colors"
-                download
               >
                 <FileText className="w-4 h-4" />
-                <span>Resume</span>
-              </a>
+                <span>View Resume</span>
+              </Link>
+              {/* <a
+                  href="/resume.pdf"
+                  download
+                  className="flex items-center space-x-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600"
+                >
+                  <FileText className="w-4 h-4" />
+                  <span>Download</span>
+              </a> */}
             </div>
           </div>
         </div>
