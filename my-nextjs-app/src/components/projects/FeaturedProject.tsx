@@ -9,7 +9,7 @@ import {
   Brain, Code, GitBranch, Book, 
   ChartBar, Laptop, FileText, MessageSquare 
 } from 'lucide-react';
-import { Project } from '@/types/project';
+import { Project } from '@/types/projects';
 
 interface FeaturedProjectProps {
   project: Project;

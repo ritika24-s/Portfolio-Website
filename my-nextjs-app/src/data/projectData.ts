@@ -3,7 +3,7 @@
  * Purpose: Centralized project data matching your interface
  */
 
-import { Project } from '@/types/project';
+import { Project } from '@/types/projects';
 
 export const projectsData: Project[] = [
   {

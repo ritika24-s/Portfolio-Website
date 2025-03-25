@@ -29,7 +29,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell, LineChart, Line
 } from 'recharts';
-import { ProjectAnalyticsProps, TechUsage, YearlyProjects } from '@/types/project';
+import { ProjectAnalyticsProps, TechUsage, YearlyProjects } from '@/types/projects';
 
 
 export const ProjectAnalytics = ({ projects }: ProjectAnalyticsProps) => {

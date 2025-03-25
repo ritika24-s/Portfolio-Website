@@ -1,12 +1,8 @@
-/*
- * File: src/components/projects/ProjectShowcase.tsx
- * Purpose: Updated project showcase with links to detailed pages
- */
-
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Project } from '@/types/project';
+import Image from 'next/image';
+import { Project } from '@/types/projects';
 import { 
   BookOpen, Briefcase, Code, Server, 
   GitBranch, ChevronRight,
@@ -45,6 +41,19 @@ export const ProjectShowcase = ({ projects }: ProjectShowcaseProps) => {
     }
   };
 
+  const getCategoryColor = (category: string) => {
+    switch(category) {
+      case 'research':
+        return 'bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300';
+      case 'nlp':
+        return 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300';
+      case 'fullstack':
+        return 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300';
+      default:
+        return 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300';
+    }
+  };
+
   return (
     <div className="space-y-8">
       {/* Category Filter */}
@@ -74,6 +83,30 @@ export const ProjectShowcase = ({ projects }: ProjectShowcaseProps) => {
             transition={{ delay: index * 0.1 }}
             className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
           >
+            {/* Project Image */}
+            <div className="relative w-full h-48 overflow-hidden">
+              {project.images && project.images.length > 0 ? (
+                <Image
+                  src={project.images[0]}
+                  alt={project.title}
+                  fill
+                  className="object-cover"
+                />
+              ) : (
+                <div className="w-full h-full bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-600 flex items-center justify-center">
+                  {getCategoryIcon(project.category)}
+                  <span className="ml-2 text-gray-500 dark:text-gray-400">No image available</span>
+                </div>
+              )}
+              
+              {/* Category Label */}
+              <div className="absolute top-4 right-4">
+                <span className={`px-3 py-1 rounded-full text-xs font-medium ${getCategoryColor(project.category)}`}>
+                  {project.category}
+                </span>
+              </div>
+            </div>
+            
             <div className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-3">

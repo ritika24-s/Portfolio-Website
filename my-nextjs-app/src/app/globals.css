@@ -3,14 +3,62 @@
 @tailwind utilities;
 
 /* Add dark mode styles */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Add dark mode styles */
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-rgb: 255, 255, 255;
+  
+  /* Improved color palette for light mode */
+  --text-primary: #1a202c;
+  --text-secondary: #4a5568;
+  --text-tertiary: #718096;
+  
+  --bg-primary: #ffffff;
+  --bg-secondary: #f7fafc;
+  --bg-tertiary: #edf2f7;
+  
+  --accent-blue: #3b82f6;
+  --accent-blue-hover: #2563eb;
+  --accent-blue-light: #e1effe;
+  
+  --accent-purple: #8b5cf6;
+  --accent-purple-hover: #7c3aed;
+  --accent-purple-light: #ede9fe;
+  
+  --accent-green: #10b981;
+  --accent-green-hover: #059669;
+  --accent-green-light: #d1fae5;
 }
 
 .dark {
   --foreground-rgb: 255, 255, 255;
   --background-rgb: 17, 24, 39;
+  
+  /* Improved color palette for dark mode with better contrast */
+  --text-primary: #f3f4f6;
+  --text-secondary: #e5e7eb;
+  --text-tertiary: #d1d5db;
+  
+  --bg-primary: #111827;
+  --bg-secondary: #1f2937;
+  --bg-tertiary: #374151;
+  
+  --accent-blue: #60a5fa;
+  --accent-blue-hover: #3b82f6;
+  --accent-blue-light: #1e3a8a;
+  
+  --accent-purple: #a78bfa;
+  --accent-purple-hover: #8b5cf6;
+  --accent-purple-light: #4c1d95;
+  
+  --accent-green: #34d399;
+  --accent-green-hover: #10b981;
+  --accent-green-light: #065f46;
 }
 
 body {
@@ -20,8 +68,45 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* File: src/app/globals.css */
+/* Improved contrast text classes */
+.text-contrast-high {
+  color: var(--text-primary);
+}
 
+.text-contrast-medium {
+  color: var(--text-secondary);
+}
+
+.text-contrast-low {
+  color: var(--text-tertiary);
+}
+
+/* Fix for low contrast backgrounds in dark mode */
+.dark .bg-blue-100 {
+  background-color: rgba(59, 130, 246, 0.3);
+}
+
+.dark .bg-purple-100 {
+  background-color: rgba(139, 92, 246, 0.3);
+}
+
+.dark .bg-green-100 {
+  background-color: rgba(16, 185, 129, 0.3);
+}
+
+.dark .text-blue-600 {
+  color: #60a5fa;
+}
+
+.dark .text-purple-600 {
+  color: #a78bfa;
+}
+
+.dark .text-green-600 {
+  color: #34d399;
+}
+
+/* Animations */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -65,6 +150,155 @@ body {
   10% { opacity: 1; }
   90% { opacity: 1; }
   100% { opacity: 0; }
+}
+
+/* Add these to your existing Tailwind utilities */
+@layer utilities {
+  .animate-fadeIn {
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  .animate-scaleIn {
+    animation: scaleIn 0.3s ease-out;
+  }
+  
+  .animate-slideInUp {
+    animation: slideInUp 0.5s ease-out forwards;
+  }
+  
+  .animate-slideInDown {
+    animation: slideInDown 0.3s ease-out;
+  }
+  
+  .animate-fadeInOut {
+    animation: fadeInOut 2s ease-out;
+  }
+  
+  /* Accessible focus styles */
+  .focus-visible:focus {
+    outline: 2px solid var(--accent-blue);
+    outline-offset: 2px;
+  }
+}
+
+/* Focus indicators for improved keyboard navigation */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  /* Hide non-printable elements */
+  .no-print {
+    display: none !important;
+  }
+
+  /* Reset background colors and text colors */
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  /* Ensure all content is visible */
+  .print-visible {
+    display: block !important;
+    opacity: 1 !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* Adjust layout for printing */
+  .print-break-after {
+    break-after: page;
+  }
+
+  /* QR Code visibility */
+  .print-qr {
+    display: block !important;
+    margin: 20px 0;
+  }
+
+  /* Links */
+  a[href]:after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    font-weight: normal;
+  }
+
+  /* Reset shadows and animations */
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Mobile Optimization */
+@media (max-width: 640px) {
+  .mobile-tap-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .mobile-card-padding {
+    padding: 1rem !important;
+  }
+  
+  .mobile-text-base {
+    font-size: 16px !important;
+  }
+  
+  .mobile-heading-adjust {
+    font-size: 1.5rem !important;
+    line-height: 2rem !important;
+  }
+  
+  .mobile-compact-spacing {
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  /* Better scrolling on iOS */
+  .momentum-scroll {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Prevent text from being too small on mobile */
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  
+  body {
+    touch-action: manipulation;
+  }
+  
+  /* Fix for iOS input zoom */
+  input[type="text"],
+  input[type="email"],
+  input[type="search"],
+  input[type="password"],
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* A11y - sr-only for screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 /* Add these to your existing Tailwind utilities */

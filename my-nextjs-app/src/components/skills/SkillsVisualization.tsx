@@ -13,7 +13,8 @@ import {
   LineChart, 
   Server, 
   Layout, 
-  Globe 
+  Globe,
+  Info
 } from 'lucide-react';
 import { 
   skillsData, 
@@ -25,19 +26,21 @@ import {
 export const SkillsVisualization = () => {
   const [selectedCategory, setSelectedCategory] = useState<SkillCategory>('nlp');
   const [selectedSkill, setSelectedSkill] = useState<string | null>(null);
+  const [showProficiencyInfo, setShowProficiencyInfo] = useState(false);
   
-  const categories: { id: SkillCategory; icon: React.ReactNode }[] = [
-    { id: 'nlp', icon: <BrainCircuit className="w-5 h-5" /> },
-    { id: 'machine_learning', icon: <LineChart className="w-5 h-5" /> },
-    { id: 'programming', icon: <Code className="w-5 h-5" /> },
-    { id: 'backend', icon: <Server className="w-5 h-5" /> },
-    { id: 'frontend', icon: <Layout className="w-5 h-5" /> },
-    { id: 'databases', icon: <Database className="w-5 h-5" /> },
-    { id: 'devops', icon: <Globe className="w-5 h-5" /> }
+  const categories: { id: SkillCategory; icon: React.ReactNode; color: string }[] = [
+    { id: 'nlp', icon: <BrainCircuit className="w-5 h-5" />, color: 'from-blue-500 to-blue-600' },
+    { id: 'machine_learning', icon: <LineChart className="w-5 h-5" />, color: 'from-purple-500 to-purple-600' },
+    { id: 'programming', icon: <Code className="w-5 h-5" />, color: 'from-green-500 to-green-600' },
+    { id: 'backend', icon: <Server className="w-5 h-5" />, color: 'from-indigo-500 to-indigo-600' },
+    { id: 'frontend', icon: <Layout className="w-5 h-5" />, color: 'from-pink-500 to-pink-600' },
+    { id: 'databases', icon: <Database className="w-5 h-5" />, color: 'from-yellow-500 to-yellow-600' },
+    { id: 'devops', icon: <Globe className="w-5 h-5" />, color: 'from-red-500 to-red-600' }
   ];
   
   const categoryInfo = getCategoryInfo(selectedCategory);
   const categorySkills = getSkillsByCategory(selectedCategory);
+  const currentCategory = categories.find(c => c.id === selectedCategory);
   
   const getSkillDetails = (skillName: string) => {
     return skillsData.find(skill => skill.name === skillName);
@@ -57,15 +60,70 @@ export const SkillsVisualization = () => {
     }
   };
 
+  // Get color for proficiency level
+  const getProficiencyColor = (level: number) => {
+    switch(level) {
+      case 1: return 'bg-blue-100 dark:bg-blue-900/20 text-blue-500';
+      case 2: return 'bg-green-100 dark:bg-green-900/20 text-green-500';
+      case 3: return 'bg-yellow-100 dark:bg-yellow-900/20 text-yellow-500';
+      case 4: return 'bg-purple-100 dark:bg-purple-900/20 text-purple-500';
+      case 5: return 'bg-red-100 dark:bg-red-900/20 text-red-500';
+      default: return 'bg-gray-100 dark:bg-gray-700 text-gray-500';
+    }
+  };
+
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-6 text-white">
-        <h2 className="text-2xl font-bold mb-2">Technical Skills</h2>
-        <p className="text-blue-100">
-          Expertise across NLP, machine learning, and software development
-        </p>
+      <div className={`bg-gradient-to-r ${currentCategory?.color || 'from-blue-500 to-purple-600'} p-6 text-white`}>
+        <div className="flex justify-between items-center">
+          <div>
+            <h2 className="text-2xl font-bold mb-2">Technical Skills</h2>
+            <p className="text-blue-100">
+              Expertise across NLP, machine learning, and software development
+            </p>
+          </div>
+          <button
+            onClick={() => setShowProficiencyInfo(!showProficiencyInfo)}
+            className="p-2 bg-white bg-opacity-20 rounded-full hover:bg-opacity-30 transition-colors"
+            aria-label="Show proficiency level information"
+          >
+            <Info className="w-5 h-5" />
+          </button>
+        </div>
       </div>
+      
+      {/* Proficiency Information Modal */}
+      {showProficiencyInfo && (
+        <div className="p-4 bg-blue-50 dark:bg-blue-900/20 border-b border-blue-100 dark:border-blue-800">
+          <div className="flex justify-between items-start">
+            <h3 className="font-semibold mb-2">Proficiency Levels Explained</h3>
+            <button
+              onClick={() => setShowProficiencyInfo(false)}
+              className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+            >
+              ✕
+            </button>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-3 text-sm">
+            <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded">
+              <span className="font-semibold">1 - Familiar:</span> Basic understanding
+            </div>
+            <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded">
+              <span className="font-semibold">2 - Competent:</span> Working knowledge
+            </div>
+            <div className="p-2 bg-yellow-100 dark:bg-yellow-900/30 rounded">
+              <span className="font-semibold">3 - Proficient:</span> Regular application
+            </div>
+            <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded">
+              <span className="font-semibold">4 - Advanced:</span> Deep understanding
+            </div>
+            <div className="p-2 bg-red-100 dark:bg-red-900/30 rounded">
+              <span className="font-semibold">5 - Expert:</span> Comprehensive mastery
+            </div>
+          </div>
+        </div>
+      )}
       
       {/* Categories */}
       <div className="border-b border-gray-200 dark:border-gray-700 overflow-x-auto">
@@ -125,16 +183,8 @@ export const SkillsVisualization = () => {
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
                     <div className="relative">
-                      <div className="h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center">
-                        <div 
-                          className="h-6 w-6 rounded-full flex items-center justify-center text-xs font-medium"
-                          style={{
-                            backgroundColor: `rgba(59, 130, 246, ${skill.level * 0.2})`,
-                            color: skill.level >= 3 ? 'white' : 'inherit'
-                          }}
-                        >
-                          {skill.level}
-                        </div>
+                      <div className={`h-8 w-8 rounded-full flex items-center justify-center ${getProficiencyColor(skill.level)}`}>
+                        {skill.level}
                       </div>
                     </div>
                   </div>
@@ -162,21 +212,27 @@ export const SkillsVisualization = () => {
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-xl font-semibold">{selectedSkillDetails.name}</h3>
                 <div className="flex items-center">
-                  <div className="flex space-x-1">
-                    {[1, 2, 3, 4, 5].map((level) => (
-                      <div
-                        key={level}
-                        className={`w-2 h-8 rounded-sm ${
-                          level <= selectedSkillDetails.level
-                            ? 'bg-blue-500'
-                            : 'bg-gray-200 dark:bg-gray-600'
-                        }`}
-                      />
-                    ))}
+                  <div className={`px-3 py-1 rounded-full text-sm font-medium ${getProficiencyColor(selectedSkillDetails.level)}`}>
+                    {getProficiencyLabel(selectedSkillDetails.level)} ({selectedSkillDetails.level}/5)
                   </div>
-                  <span className="ml-3 text-sm text-gray-500 dark:text-gray-400">
-                    {getProficiencyLabel(selectedSkillDetails.level)}
-                  </span>
+                </div>
+              </div>
+              
+              {/* Skill meter */}
+              <div className="mb-6">
+                <div className="h-2 w-full bg-gray-200 dark:bg-gray-600 rounded-full overflow-hidden">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={{ width: `${(selectedSkillDetails.level / 5) * 100}%` }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    className={`h-full rounded-full ${
+                      selectedSkillDetails.level === 5 ? 'bg-red-500' :
+                      selectedSkillDetails.level === 4 ? 'bg-purple-500' :
+                      selectedSkillDetails.level === 3 ? 'bg-yellow-500' :
+                      selectedSkillDetails.level === 2 ? 'bg-green-500' :
+                      'bg-blue-500'
+                    }`}
+                  />
                 </div>
               </div>
               
@@ -201,6 +257,33 @@ export const SkillsVisualization = () => {
                   </div>
                 </div>
               )}
+              
+              {/* Projects using this skill */}
+              <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-600">
+                <h4 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">
+                  Where I&apos;ve Applied This Skill
+                </h4>
+                <ul className="space-y-2">
+                  <li className="flex items-start">
+                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 mr-2"></div>
+                    <span className="text-gray-600 dark:text-gray-300">
+                      {selectedSkillDetails.category === 'nlp' ? 
+                        "Built sentiment analysis and topic classification systems at Scorebuddy" :
+                        selectedSkillDetails.category === 'machine_learning' ?
+                        "Developed personality prediction models for my MSc thesis at Trinity College Dublin" :
+                        selectedSkillDetails.category === 'programming' ?
+                        "Created scalable applications across various projects and professional roles" :
+                        selectedSkillDetails.category === 'backend' ?
+                        "Designed microservices architecture for NLP pipelines at Scorebuddy" :
+                        selectedSkillDetails.category === 'frontend' ?
+                        "Built interactive user interfaces for SaaS applications" :
+                        selectedSkillDetails.category === 'databases' ?
+                        "Implemented database systems for data storage and retrieval in various projects" :
+                        "Deployed and managed applications in cloud environments"}
+                    </span>
+                  </li>
+                </ul>
+              </div>
             </div>
           ) : (
             <div className="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 h-full flex items-center justify-center">
@@ -211,37 +294,45 @@ export const SkillsVisualization = () => {
           )}
         </div>
 
-        {/* Skill Levels Legend */}
-        <div className="md:col-span-3 border-t border-gray-200 dark:border-gray-700 pt-6">
-          <h4 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">
-            Proficiency Levels
-          </h4>
-          <div className="flex flex-wrap gap-4 justify-between">
-            {[
-              { level: 1, label: 'Familiar', description: 'Basic understanding and limited practical experience' },
-              { level: 2, label: 'Competent', description: 'Working knowledge with some practical application' },
-              { level: 3, label: 'Proficient', description: 'Solid understanding and regular practical application' },
-              { level: 4, label: 'Advanced', description: 'Deep understanding with extensive practical experience' },
-              { level: 5, label: 'Expert', description: 'Comprehensive expertise and mastery through professional work' }
-            ].map((item) => (
-              <div key={item.level} className="flex items-start space-x-2">
-                <div 
-                  className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium flex-shrink-0 mt-0.5"
-                  style={{
-                    backgroundColor: `rgba(59, 130, 246, ${item.level * 0.2})`,
-                    color: item.level >= 3 ? 'white' : 'inherit'
+        {/* Category Skills Overview */}
+        <div className="md:col-span-3 p-6 bg-gray-50 dark:bg-gray-700 rounded-xl">
+          <h3 className="text-lg font-semibold mb-4">
+            {categoryInfo.title} Skill Distribution
+          </h3>
+          <div className="relative h-10 bg-gray-200 dark:bg-gray-600 rounded-lg overflow-hidden">
+            {[5, 4, 3, 2, 1].map(level => {
+              // Count skills at this level in this category
+              const skillsAtLevel = categorySkills.filter(s => s.level === level);
+              const percentage = (skillsAtLevel.length / categorySkills.length) * 100;
+              
+              return (
+                <motion.div
+                  key={level}
+                  initial={{ width: 0 }}
+                  animate={{ width: `${percentage}%` }}
+                  transition={{ duration: 0.5, delay: (5 - level) * 0.1 }}
+                  className={`absolute h-full ${
+                    level === 5 ? 'bg-red-500 left-0' :
+                    level === 4 ? 'bg-purple-500' :
+                    level === 3 ? 'bg-yellow-500' :
+                    level === 2 ? 'bg-green-500' :
+                    'bg-blue-500'
+                  }`}
+                  style={{ 
+                    left: `${[5, 4, 3, 2, 1].slice(0, 5-level).reduce((acc, l) => {
+                      return acc + (categorySkills.filter(s => s.level === l).length / categorySkills.length) * 100;
+                    }, 0)}%` 
                   }}
-                >
-                  {item.level}
-                </div>
-                <div>
-                  <div className="font-medium text-sm">{item.label}</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 max-w-xs">
-                    {item.description}
-                  </div>
-                </div>
-              </div>
-            ))}
+                />
+              );
+            })}
+          </div>
+          <div className="flex justify-between mt-2 text-xs text-gray-500 dark:text-gray-400">
+            <span>Familiar</span>
+            <span>Competent</span>
+            <span>Proficient</span>
+            <span>Advanced</span>
+            <span>Expert</span>
           </div>
         </div>
       </div>

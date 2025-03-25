@@ -12,7 +12,7 @@ import {
   Play, LineChart, ExternalLink
 } from 'lucide-react';
 
-import { Project } from '@/types/project';
+import { Project } from '@/types/projects';
 
 interface ProjectDetailProps {
   project: Project;
